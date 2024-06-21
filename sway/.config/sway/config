@@ -1,0 +1,279 @@
+include catppuccin-latte
+
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term kitty
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# font pango:FiraCode 11, Awesome 12
+font pango:FiraCode Nerd Font 10
+
+# Keyboard Layout
+input type:keyboard {
+  xkb_layout eu
+}
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec $term
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start program launcher
+#bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10 --style ~/.config/sway/wofi.css
+bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10 
+#bindsym $mod+Shift+s exec grimshot --notify copy area
+
+# change focus
+  # Move your focus around
+  bindsym $mod+$left focus left
+  bindsym $mod+$down focus down
+  bindsym $mod+$up focus up
+  bindsym $mod+$right focus right
+  # Or use $mod+[up|down|left|right]
+  bindsym $mod+Left focus left
+  bindsym $mod+Down focus down
+  bindsym $mod+Up focus up
+  bindsym $mod+Right focus right
+
+  # Move the focused window with the same, but add Shift
+  bindsym $mod+Shift+$left move left
+  bindsym $mod+Shift+$down move down
+  bindsym $mod+Shift+$up move up
+  bindsym $mod+Shift+$right move right
+  # Ditto, with arrow keys
+  bindsym $mod+Shift+Left move left
+  bindsym $mod+Shift+Down move down
+  bindsym $mod+Shift+Up move up
+  bindsym $mod+Shift+Right move right
+
+  bindsym $mod+Tab workspace back_and_forth
+  bindsym $mod+Shift+Tab move workspace to output right
+
+
+# split in horizontal orientation
+bindsym $mod+b splith
+# split in vertical orientation
+bindsym $mod+v splitv
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+set $workspace1  "1"
+set $workspace2  "2"
+set $workspace3  "3"
+set $workspace4  "4"
+set $workspace5  "5"
+set $workspace6  "6"
+set $workspace7  "7"
+set $workspace8  "8"
+set $workspace9  "9"
+set $workspace10 "0"
+
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# Reload the config:
+bindsym $mod+Shift+c reload
+
+# exit sway (logs you out of your X session)
+#bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your X session.' -b 'Yes' 'swaymsg exit'"
+bindsym $mod+Shift+e exec "$HOME/.config/sway/powermenu.sh"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Screen capture
+set $screenshot Select Whole sElect_clip wHole_clip eDit 
+mode "$screenshot" {
+    bindsym s exec 'grim -g "$(slurp)" ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
+    bindsym w exec 'grim ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
+    bindsym e exec 'grim -g "$(slurp)" - | wl-copy', mode "default"
+    bindsym h exec 'grim - | wl-copy', mode "default"
+    bindsym d exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Print mode "default"
+}
+
+bindsym Print mode "$screenshot"
+
+# Gaps
+set $gaps outer [j/k] inner [shift+j/k]
+mode "$gaps" {
+    bindsym j gaps bottom all minus 5; gaps left all minus 5; gaps right all minus 5;
+    bindsym k gaps bottom all plus 5; gaps left all plus 5; gaps right all plus 5;
+    bindsym Shift+j gaps inner all minus 5
+    bindsym Shift+k gaps inner all plus 5
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+g mode "$gaps"
+
+default_border pixel 2
+default_floating_border normal
+titlebar_border_thickness 0
+#hide_edge_borders both
+smart_borders on
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base     $blue $rosewater $lavender
+client.focused_inactive  $overlay0 $base     $text  $rosewater $overlay0
+client.unfocused         $overlay0 $overlay0 $text  $rosewater $overlay0
+client.urgent            $peach    $base     $peach $overlay0  $peach
+client.placeholder       $overlay0 $base     $text  $overlay0  $overlay0
+client.background        $base
+
+bar {
+    swaybar_command waybar
+}
+
+
+# Extra keybinds:
+bindsym $mod+F1 exec swaylock -f -c000000 
+bindsym $mod+F2 exec swaylock -f -c000000 && systemctl suspend
+
+# Execute the gnome keyring
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+
+# Execute this notification manager always:
+# (does stop when started twice)
+exec mako
+
+# Execute Nextcloud
+exec --no-startup-id nextcloud
+
+# Uncomment this if you want to set a static wallpaper:
+output "*" bg ~/.wallpaper.png fill
+
+######################################
+# APPLICATION SPECIFIC CONFIGURATION #
+######################################
+
+# List all windows here that should have default settings:
+assign [class="chromium"]    workspace $workspace2
+assign [app_id="at.yrlf.wl_mirror"]  workspace $workspace9
+
+# Start the automount daemon:
+# Requires `udisks2` and `udiskie` to be installed:
+exec udiskie --tray --notify
+
+### Idle configuration
+exec swayidle -w \
+         timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 320 'swaylock -f -c 000000' \
+         before-sleep 'swaylock -f -c 000000'
+
+# Redshift the display in the evening:
+#exec gammastep -m wayland -l 48.36:10.89
+
+# NetworkManager tray icon:
+exec nm-applet --indicator
+
+# OSD window
+exec swayosd-server
+
+# Sink volume raise
+bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+# Sink volume lower
+bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
+# Sink volume toggle mute
+bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
+# Source volume toggle mute
+bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+
+# Capslock
+bindsym --release Caps_Lock exec swayosd-client --caps-lock
+
+# Brightness raise
+bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
+# Brightness lower
+bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
+
+# Password
+bindsym $mod+Comma exec wofi-pass -c
+
+include /etc/sway/config.d/*
+include "$HOME/.config/sway/config.d/$(cat /etc/hostname)"

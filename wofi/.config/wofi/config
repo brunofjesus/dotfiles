@@ -1,0 +1,22 @@
+#mode=drun,run
+#colors=colors
+#filter_rate=100
+#allow_images=true
+#image_size=32px
+#drun-display_generic=true
+#dynamic_lines=false
+#term=foot
+#insensitive=true
+#prompt=
+#width=500
+#hide_scroll=true
+
+show=drun
+width=750
+height=400
+always_parse_args=true
+show_all=false
+print_command=true
+insensitive=true
+key_expand=Tab
+prompt= Hmm, what do you want to run?

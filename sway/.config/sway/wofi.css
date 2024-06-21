@@ -1,0 +1,43 @@
+/* Solarized style of the wofi application picker */
+window {
+    font: 'FiraCode Nerd Font', monospace;
+    border: 2px solid #666666;
+    border-radius: 15px;
+    background-color: #dbe9f9;
+}
+
+#input {
+    margin: 5px;
+    color: #666666;
+    border: 2px solid #657b83;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+#inner-box {
+    margin: 5px;
+    border: 2px solid #586e75;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+#outer-box {
+    margin: 15px;
+    border: 2px solid #dbe9f9;
+    border-radius: 15px;
+    background-color: #dbe9f9;
+}
+
+#text {
+    margin: 5px;
+    color: #24292e;
+}
+
+#entry:selected {
+    background-color: #58f785;
+}
+
+#text:selected {
+    color: #24292e;
+    border-radius: 15px;
+}

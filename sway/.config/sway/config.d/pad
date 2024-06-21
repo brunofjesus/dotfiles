@@ -1,0 +1,7 @@
+# Configurations for T480
+output eDP-1 scale 1.20
+output DP-3 scale 1.20
+
+# Meta+P to start the mirror
+bindsym $mod+p exec wl-mirror eDP-1
+

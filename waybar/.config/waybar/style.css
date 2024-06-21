@@ -1,0 +1,191 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+@import "latte.css";
+
+* {
+  color: @text;
+  border: 0;
+  border-radius: 0;
+  padding: 0 0;
+  font-family: FiraCode Nerd Font;
+  font-size: 14px;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-bottom: 1px;
+}
+
+window#waybar {
+  background: @base;
+}
+
+#workspaces button {
+  padding: 2px 0px;
+  border-bottom: 2px;
+  color: @blue;
+  border-color: @overlay0;
+  border-style: solid;
+  margin-top: 2px;
+}
+
+#workspaces button {
+  border-color: @base;
+}
+#workspaces button.visible {
+  border-color: @subtext0;
+}
+
+#workspaces button.focused {
+  border-color: @blue;
+}
+
+#workspaces button.urgent {
+  border-color: @red;
+}
+
+#mode {
+  color: @maroon;
+}
+
+#clock,
+#cpu,
+#memory,
+#idle_inhibitor,
+#temperature,
+#custom-keyboard-layout,
+#backlight,
+#network,
+#pulseaudio,
+#mode,
+#tray,
+#window,
+#custom-launcher,
+#custom-power,
+#custom-pacman,
+#custom-load,
+#custom-swap,
+#disk,
+#battery,
+#custom-fan {
+  padding: 0 3px;
+  border-bottom: 2px;
+  border-style: solid;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#clock {
+  color: @green;
+}
+
+#backlight {
+  color: @peach;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @yellow;
+}
+
+@keyframes blink {
+  to {
+    color: #4c566a;
+    background-color: #eceff4;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background: @red;
+  color: @text;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#cpu {
+  color: @teal;
+}
+
+#memory {
+  color: @pink;
+}
+
+#network.disabled {
+  color: @red;
+}
+
+#network {
+  color: @yellow;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+#pulseaudio {
+  color: @flamingo;
+}
+
+#pulseaudio.muted {
+  color: @subtext1;
+}
+
+#temperature {
+  color: @green;
+}
+
+#temperature.critical {
+  color: @white;
+  background-color: @red;
+}
+
+#idle_inhibitor {
+  color: @yellow;
+}
+
+#tray {
+}
+
+#custom-launcher,
+#custom-power {
+  border-style: hidden;
+  margin-top: 2px;
+}
+
+#window {
+  border-style: hidden;
+  margin-top: 1px;
+}
+#mode {
+  margin-bottom: 3px;
+}
+
+#custom-keyboard-layout {
+  color: @peach;
+}
+
+tooltip {
+  color: @text;
+  background-color: @crust;
+  text-shadow: none;
+  border-style: solid;
+  border-color: @overlay2;
+  border-width: 1px;
+}
+
+tooltip * {
+  color: @text;
+  text-shadow: none;
+}

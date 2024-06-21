@@ -1,0 +1,4 @@
+# Configurations for X230
+
+# Meta+P to start the mirror
+bindsym $mod+p exec wl-mirror LVDS-1

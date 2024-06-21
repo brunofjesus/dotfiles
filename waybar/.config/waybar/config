@@ -1,0 +1,161 @@
+// -*- mode: json -*-
+{
+	"layer": "bottom",
+	"position": "top",
+	"modules-left": [
+		"sway/workspaces",
+		"sway/mode",
+	],
+	"modules-center": [
+	],
+	"modules-right": [
+    "custom/fan",
+    "temperature",
+    //"custom/load",
+		"cpu",
+		"memory",
+		"custom/swap",
+    "network",
+		//"disk",
+		"pulseaudio",
+		"backlight",
+		"battery",
+		"tray",
+		"clock",
+    "idle_inhibitor",
+	],
+	"sway/workspaces": {
+		"disable-scroll": true,
+ 		"all-outputs": true,
+ 		"format": "{name} {icon}",
+		"format-icons": {
+			"1": "",
+			"2": "",
+			"urgent": "",
+			"focused": "",
+			"default": ""
+		}
+	},
+	"sway/mode": {
+		"format": "{}"
+	},
+	"backlight": {
+		"format": "{icon} {percent}%",
+		"format-icons": ["", ""],
+		"on-scroll-up": "brightnessctl set +5%",
+		"on-scroll-down": "brightnessctl set 5%-"
+	},
+	"wlr/taskbar": {
+		"all-outputs": true,
+		"format": "{icon}",
+		"icon-size": 12,
+		"on-click": "activate",
+		"on-click-right": "fullscreen",
+		"on-click-middle": "close"
+	},
+	"clock": {
+		"format": " {:%a %d %b %H:%M}",
+		"tooltip": true,
+        "on-click": "gnome-calendar"
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}%  {format_source}",
+		"format-bluetooth": "{icon} {volume}% {format_source}",
+		"format-bluetooth-muted": " {icon} {format_source}",
+		"format-muted": " {format_source}",
+		"format-source": " {volume}%",
+		"format-source-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": [
+				"",
+				"",
+				""
+			]
+		},
+		"on-click": "pavucontrol"
+	},
+	"memory": {
+		"interval": 5,
+		"format": " {}%"
+	},
+	"cpu": {
+		"interval": 1,
+		"format": " {usage:2}%"
+	},
+	"custom/load": {
+		"interval": 5,
+		"format": "  {}",
+        "exec": "cat /proc/loadavg | cut -d' ' -f2"
+	},
+	"battery": {
+		"states": {
+			"good": 95,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon}  {capacity}%",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
+	},
+	"disk": {
+		"interval": 5,
+		"format": " {percentage_used:2}%",
+		"path": "/"
+	},
+	"tray": {
+		"icon-size": 16,
+		"spacing": 6 
+	},
+	"custom/pacman": {
+		"format": "  {}",
+		"interval": 900, // every 15 minutes
+		"exec": "checkupdates | wc -l", // # of updates
+		"exec-if": "exit 0", // always run; consider advanced run conditions
+		"signal": 8,
+		"tooltip": false
+	},
+	"custom/swap": {
+		"format": " {}",
+		"interval": 5,
+		"exec": "free -h | grep Swap | awk '{print $3}'"
+	},
+  "custom/fan": {
+    "format": "󰈐 {}rpm",
+    "interval": 2,
+    "exec": "$HOME/.config/waybar/modules/fan"
+  },
+  "network": {
+      "format-ethernet": "",
+      "format-wifi": "{essid} ({signalStrength}%)  ",
+      "format-ethernet": "{ifname}  ",
+      "format-disconnected": "",
+      "tooltip-format": "{ifname}",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+      "tooltip-format-ethernet": "{ifname} ",
+      "tooltip-format-disconnected": "Disconnected"
+  },
+  "temperature": {
+      "critical-threshold": 75,
+      "format-critical": "{temperatureC}°C ",
+      "format": "{temperatureC}°C ",
+      "tooltip": true
+  },
+  "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+          "activated": "󰅶",
+          "deactivated": "󰾪"
+      }
+  }
+}

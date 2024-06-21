@@ -1,0 +1,23 @@
+# Configurations for W541
+
+# Tap to click
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+# Meta+P to start the mirror
+bindsym $mod+p exec wl-mirror eDP-1
+
+# Fractional scaling
+output eDP-1 scale 1.8
+
+
+# Disable the laptop display when the lid is closed
+set $laptop_output eDP-1
+bindswitch lid:on output $laptop_output disable
+bindswitch lid:off output $laptop_output enable
+
+# gaps
+bindsym $mod+g gaps inner all plus 2
+bindsym $mod+Shift+g gaps inner all minus 2
