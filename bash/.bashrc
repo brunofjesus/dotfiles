@@ -24,16 +24,20 @@ if [[ -r /usr/share/bash-completion/bash_completion ]]; then
 fi
 
 export PATH="$PATH:$HOME/go/bin"
-export BAT_THEME="Solarized (light)"
-export LS_COLORS="$(vivid generate catppuccin-latte)"
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
 export PINENTRY_USER_DATA="gnome3"
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 #alias vim="nvim"
 alias ls="lsd"
 alias ll="lsd -l"
 alias pass="PINENTRY_USER_DATA=\"curses\" pass"
+alias mpv-yt="mpv --vo=kitty --vo-kitty-use-shm=yes --profile=sw-fast --really-quiet --ytdl-format=\"bestvideo[height<=?360][fps<=?30][vcodec!=?vp9]+bestaudio/best\""
 
-function cl () {
+function cs () {
     cd $1
     ls
 }

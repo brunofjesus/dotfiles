@@ -734,11 +734,12 @@ enable_audio_bell no
 #: The audio bell. Useful to disable it in environments that require
 #: silence.
 
-#visual_bell_duration 0.1
+visual_bell_duration 0.1
 
 #: The visual bell duration (in seconds). Flash the screen when a bell
 #: occurs for the specified number of seconds. Set to zero to disable.
-# visual_bell_color #eff1f5
+
+visual_bell_color #eff1f5
 
 #: The color used by visual bell. Set to none will fall back to
 #: selection background color. If you feel that the visual bell is too
@@ -984,10 +985,7 @@ enable_audio_bell no
 #: The second number is the margin between the tab bar and the
 #: contents of the current tab.
 
-tab_bar_style powerline
-tab_powerline_style slanted
-tab_title_template          {title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}
-
+# tab_bar_style fade
 
 #: The tab bar style, can be one of:
 
@@ -2516,9 +2514,3 @@ tab_title_template          {title}{' :{}:'.format(num_windows) if num_windows >
 
 #: }}}
 
-
-
-# BEGIN_KITTY_THEME
-# Catppuccin-Mocha
-include current-theme.conf
-# END_KITTY_THEME

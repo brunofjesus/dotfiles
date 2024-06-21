@@ -1,4 +1,4 @@
-include catppuccin-latte
+include catppuccin-mocha
 
 set $mod Mod4
 
@@ -226,7 +226,7 @@ exec mako
 exec --no-startup-id nextcloud
 
 # Uncomment this if you want to set a static wallpaper:
-output "*" bg ~/.wallpaper.png fill
+output "*" bg ~/.wallpaper.jpg fill
 
 ######################################
 # APPLICATION SPECIFIC CONFIGURATION #
