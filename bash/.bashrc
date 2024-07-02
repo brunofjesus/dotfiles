@@ -23,7 +23,7 @@ if [[ -r /usr/share/bash-completion/bash_completion ]]; then
   . /usr/share/bash-completion/bash_completion
 fi
 
-export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts:$HOME/go/bin:$HOME/.local/bin"
 export LS_COLORS="$(vivid generate catppuccin-mocha)"
 export PINENTRY_USER_DATA="gnome3"
 export FZF_DEFAULT_OPTS=" \
@@ -49,4 +49,3 @@ function fzfo() {
 
 eval "$(starship init bash)"
 source /usr/share/nvm/init-nvm.sh
-

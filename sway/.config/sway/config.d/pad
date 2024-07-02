@@ -5,3 +5,7 @@ output DP-3 pos 1600 0 res 2560x1440 scale 1.00
 # Meta+P to start the mirror
 bindsym $mod+p exec wl-mirror eDP-1
 
+input "type:touchpad" {
+	dwt disabled
+	tap enabled
+}
