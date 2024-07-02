@@ -6,6 +6,8 @@
 
 # Packages (contains AUR)
 
+List generated with `pacman -Qqe`
+
 - base
 - base-devel
 - bash-completion
