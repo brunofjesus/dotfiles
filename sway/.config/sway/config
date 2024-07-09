@@ -255,14 +255,14 @@ exec nm-applet --indicator
 # OSD window
 exec swayosd-server
 
-# Sink volume raise
+# Media Keys
 bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
-# Sink volume lower
 bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
-# Sink volume toggle mute
 bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-# Source volume toggle mute
 bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Capslock
 bindsym --release Caps_Lock exec swayosd-client --caps-lock
