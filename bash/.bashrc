@@ -36,6 +36,7 @@ alias ls="lsd"
 alias ll="lsd -l"
 alias pass="PINENTRY_USER_DATA=\"curses\" pass"
 alias mpv-yt="mpv --vo=kitty --vo-kitty-use-shm=yes --profile=sw-fast --really-quiet --ytdl-format=\"bestvideo[height<=?360][fps<=?30][vcodec!=?vp9]+bestaudio/best\""
+alias ssh="TERM=xterm-256color kitten ssh"
 
 function cs () {
     cd $1
