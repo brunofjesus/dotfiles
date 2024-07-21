@@ -13,6 +13,7 @@ code-marketplace
 cups
 cups-pdf
 dmenu
+dnsmasq
 docker
 docker-compose
 efibootmgr
@@ -43,6 +44,7 @@ lsd
 ly
 mako
 man-db
+megit
 minicom
 mpv
 nano
@@ -66,10 +68,13 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 pkgfile
+polkit-gnome
 python-pillow
+qemu-desktop
 ranger-git
 remmina
 seahorse
+simplex-desktop-bin
 slurp
 smartmontools
 spicetify-cli
@@ -89,6 +94,7 @@ udiskie
 unzip
 vi
 vim
+virt-manager
 vivid
 vlc
 vulkan-intel
