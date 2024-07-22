@@ -278,5 +278,8 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 # Password
 bindsym $mod+Comma exec wofi-pass -c
 
+# Emoji
+bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
+
 include /etc/sway/config.d/*
 include "$HOME/.config/sway/config.d/$(cat /etc/hostname)"
