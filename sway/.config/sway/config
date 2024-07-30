@@ -224,6 +224,7 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # Execute this notification manager always:
 # (does stop when started twice)
 exec mako
+bindsym $mod+t exec makoctl dismiss -a
 
 # Execute Nextcloud
 exec --no-startup-id sleep 2 && nextcloud
@@ -236,8 +237,13 @@ output "*" bg ~/.wallpaper.jpg fill
 ######################################
 
 # List all windows here that should have default settings:
-assign [class="chromium"]    workspace $workspace2
-assign [app_id="at.yrlf.wl_mirror"]  workspace $workspace9
+# to get app classes run `swaymsg -t get_tree`
+assign [class="Brave-browser"]      workspace $workspace2
+assign [class="Tor Browser"]        workspace $workspace2
+assign [class="code-oss"]           workspace $workspace3
+assign [class="Spotify"]            workspace $workspace4
+assign [class="thunderbird"]        workspace $workspace5
+assign [app_id="at.yrlf.wl_mirror"] workspace $workspace9
 
 # Start the automount daemon:
 # Requires `udisks2` and `udiskie` to be installed:

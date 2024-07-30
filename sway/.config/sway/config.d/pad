@@ -9,3 +9,6 @@ input "type:touchpad" {
 	dwt disabled
 	tap enabled
 }
+
+# Start hydroxide
+exec --no-startup-id ~/.local/bin/hydroxide serve
