@@ -49,4 +49,5 @@ function fzfo() {
 }
 
 eval "$(starship init bash)"
+eval "$(fzf --bash)"
 source /usr/share/nvm/init-nvm.sh
