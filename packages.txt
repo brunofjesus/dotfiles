@@ -8,7 +8,6 @@ brave-bin
 brightnessctl
 btop
 catppuccin-gtk-theme-mocha
-chromium
 code
 code-marketplace
 cups
@@ -19,17 +18,19 @@ docker-compose
 dua-cli
 efibootmgr
 esptool
+foot
 freerdp
 fzf
 gimp
 git
 gnome-keyring
 gnu-netcat
-go
 grim
 gst-plugin-pipewire
 gvfs
 gvfs-smb
+helm
+htop
 hugo
 hunspell-pt_pt
 imagemagick
@@ -39,7 +40,10 @@ iptables-nft
 iwd
 jetbrains-toolbox
 jq
+k9s
 kitty
+kubectl
+lazydocker
 lazygit
 libpulse
 libreoffice-fresh
@@ -51,6 +55,7 @@ ly
 mako
 man-db
 minicom
+minikube
 mpv
 nano
 neofetch
@@ -68,7 +73,7 @@ pacman-contrib
 pass
 pass-otp
 pavucontrol
-pcmanfm
+pcmanfm-gtk3
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -121,7 +126,6 @@ wofi-pass
 xdg-utils
 xorg-xwayland
 yay
-yay-debug
 yt-dlp
 zathura
 zathura-pdf-mupdf
