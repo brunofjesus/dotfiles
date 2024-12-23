@@ -20,7 +20,7 @@ docker-compose
 dua-cli
 efibootmgr
 esptool
-firefox
+fastfetch
 foot
 freerdp
 fzf
@@ -60,7 +60,6 @@ mako
 man-db
 mpv
 nano
-neofetch
 neovim
 network-manager-applet
 networkmanager
@@ -80,6 +79,7 @@ pipewire-pulse
 pkgfile
 polkit-gnome
 protobuf
+protonmail-bridge-core
 python-pillow
 ranger-git
 remmina
@@ -96,6 +96,7 @@ swaybg
 swayidle
 swaylock
 swayosd-git
+tealdeer
 thunderbird
 torbrowser-launcher
 traceroute
@@ -115,6 +116,7 @@ wget
 wireless_tools
 wireplumber
 wl-clipboard
+wl-mirror
 wofi
 xdg-utils
 xorg-server
