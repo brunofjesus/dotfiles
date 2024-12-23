@@ -1,7 +1,9 @@
+7zip
 base
 base-devel
 bash-completion
 bat
+bitwarden
 bluetuith
 bluez
 brave-bin
@@ -18,6 +20,7 @@ docker-compose
 dua-cli
 efibootmgr
 esptool
+firefox
 foot
 freerdp
 fzf
@@ -25,6 +28,7 @@ gimp
 git
 gnome-keyring
 gnu-netcat
+go
 grim
 gst-plugin-pipewire
 gvfs
@@ -54,8 +58,6 @@ lsd
 ly
 mako
 man-db
-minicom
-minikube
 mpv
 nano
 neofetch
@@ -68,10 +70,7 @@ noto-fonts-emoji
 nss-mdns
 nvm
 openssl-1.1
-p7zip
 pacman-contrib
-pass
-pass-otp
 pavucontrol
 pcmanfm-gtk3
 pipewire
@@ -85,10 +84,8 @@ python-pillow
 ranger-git
 remmina
 seahorse
-simplex-desktop-bin
 slurp
 smartmontools
-spicetify-cli
 spotify-launcher
 starship
 steam
@@ -108,9 +105,6 @@ unrar
 unzip
 vi
 vim
-virtualbox
-virtualbox-guest-iso
-virtualbox-host-modules-arch
 vivid
 vlc
 vulkan-intel
@@ -122,8 +116,9 @@ wireless_tools
 wireplumber
 wl-clipboard
 wofi
-wofi-pass
 xdg-utils
+xorg-server
+xorg-xinit
 xorg-xwayland
 yay
 yt-dlp
