@@ -51,4 +51,5 @@ function fzfo() {
 
 eval "$(starship init bash)"
 eval "$(fzf --bash)"
+source ~/nextcloud/others/env.sh
 source /usr/share/nvm/init-nvm.sh

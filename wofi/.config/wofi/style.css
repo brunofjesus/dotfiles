@@ -1,7 +1,6 @@
-/* Mocha Blue */
-@define-color accent #89b4fa;
+@define-color accent #7c7f93;
 @define-color txt #cdd6f4;
-@define-color bg #1e1e2e;
+@define-color bg #000000;
 @define-color bg2 #181825;
 
 * {
@@ -15,7 +14,7 @@ window {
   padding: 5px;
   border: 3px solid @accent;
   border-radius: 7px;
-  background-color: @bg;
+  background-color: @black;
   animation: slideIn 0.1s ease-in-out both;
 }
 
@@ -89,6 +88,3 @@ window {
   background-color: @accent;
 }
 
-#entry:selected #text {
-  color: @bg2;
-}
