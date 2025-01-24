@@ -1,0 +1,19 @@
+# Configurations for Framework 13
+#output DP-3 pos 1600 0 res 2560x1440 scale 1.00
+
+# Disable the laptop display when the lid is closed
+set $laptop_output eDP-1
+bindswitch lid:on output $laptop_output disable
+bindswitch lid:off output $laptop_output enable
+
+
+# Meta+P to start the mirror
+bindsym $mod+p exec wl-mirror eDP-1
+
+input "type:touchpad" {
+	dwt disabled
+	tap enabled
+}
+
+# Start hydroxide
+# exec --no-startup-id ~/.local/bin/hydroxide serve
