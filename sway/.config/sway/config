@@ -138,6 +138,7 @@ bindsym $mod+Shift+c reload
 # exit sway (logs you out of your X session)
 #bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your X session.' -b 'Yes' 'swaymsg exit'"
 bindsym $mod+Shift+e exec "$HOME/.config/sway/powermenu.sh"
+bindsym $mod+Shift+p exec "$HOME/.config/sway/powerprofiles.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -163,7 +164,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Screen capture
-bindsym $mod+Shift+e exec "$HOME/.config/sway/screenshot.sh"
+bindsym print exec "$HOME/.config/sway/screenshot.sh"
 
 # Gaps
 set $gaps outer [j/k] inner [shift+j/k]

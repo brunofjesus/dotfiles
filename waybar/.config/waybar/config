@@ -11,18 +11,17 @@
     "modules-right": [
       "custom/fan",
     "temperature",
-    //"custom/load",
     "cpu",
     "memory",
-    "custom/swap",
+//    "custom/swap",
     "network",
-    "custom/pacman",
-    //"disk",
+//    "custom/pacman",
     "pulseaudio",
-    "backlight",
+//    "backlight",
     "battery",
     "tray",
     "clock",
+    "power-profiles-daemon",
     "idle_inhibitor",
     ],
     "sway/workspaces": {
@@ -99,7 +98,7 @@
     },
     "battery": {
       "states": {
-        "good": 95,
+        "good": 90,
         "warning": 30,
         "critical": 15
       },
@@ -134,10 +133,16 @@
       "interval": 5,
       "exec": "free -h | grep Swap | awk '{print $3}'"
     },
-    "custom/fan": {
+    "custom/ibm_fan": {
       "format": "󰈐 {}rpm",
       "interval": 2,
       "exec": "$HOME/.config/waybar/modules/fan"
+    },
+    "custom/fan": {
+      "format": "󰈐 {}rpm",
+      "interval": 2,
+      "exec": "sensors | awk '/fan1:/ {print $2}'",
+      "interval": 5,
     },
     "custom/player": {
       "format": "{}",
@@ -165,6 +170,17 @@
       "format-icons": {
         "activated": "󰅶",
         "deactivated": "󰾪"
+      }
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "󰓅",
+        "balanced": "󰾅",
+        "power-saver": "󰾆"
       }
     }
 }

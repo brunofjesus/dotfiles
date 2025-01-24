@@ -71,7 +71,8 @@ window#waybar {
 #custom-swap,
 #disk,
 #battery,
-#custom-fan {
+#custom-fan,
+#power-profiles-daemon {
   padding: 0 3px;
   border-bottom: 2px;
   border-style: solid;
@@ -95,6 +96,10 @@ window#waybar {
 
 #battery.charging {
   color: @yellow;
+}
+
+#power-profiles-daemon {
+  color: @pink;
 }
 
 @keyframes blink {
