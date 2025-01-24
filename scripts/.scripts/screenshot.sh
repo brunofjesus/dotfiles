@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
+
+RUNNER="wofi -i --dmenu"
+if tty -s; then
+    RUNNER="fzf"
+fi
+
 # Define the options
 OPTIONS="Select Area (Save)\nFull Screenshot (Save)\nSelect Area (Copy)\nFull Screenshot (Copy)\nSelect Area (Edit)"
 
 # Show wofi menu and get user selection
-CHOICE=$(echo -e "$OPTIONS" | wofi --dmenu --prompt "Screenshot" --cache-file /dev/null)
+CHOICE=$(echo -e "$OPTIONS" | $RUNNER --prompt "Screenshot")
 
 # Get current date-time for filename
 FILENAME="ps_$(date +"%Y%m%d%H%M%S").png"
