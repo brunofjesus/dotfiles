@@ -20,6 +20,6 @@ set $overlay0  #6c7086
 set $surface2  #585b70
 set $surface1  #45475a
 set $surface0  #313244
-set $base      #000000
+set $base      #1e1e2e
 set $mantle    #181825
 set $crust     #11111b
