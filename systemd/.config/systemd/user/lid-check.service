@@ -1,0 +1,7 @@
+[Unit]
+Description=Lid check
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/bruno/.config/systemd/user/wake-screen.sh

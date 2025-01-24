@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Lid Check Script Every 5 Seconds
+
+[Timer]
+OnUnitInactiveSec=5s
+AccuracySec=1s
+Unit=lid-check.service
+
+[Install]
+WantedBy=timers.target

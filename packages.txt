@@ -41,8 +41,6 @@ htop
 hugo
 hunspell-pt_pt
 imagemagick
-intel-media-driver
-intel-ucode
 iptables-nft
 iw
 iwd
@@ -54,7 +52,6 @@ lazydocker
 lazygit
 libpulse
 libreoffice-fresh
-libva-intel-driver
 lightdm
 lightdm-gtk-greeter
 linux
@@ -115,7 +112,6 @@ vi
 vim
 vivid
 vlc
-vulkan-intel
 vulkan-radeon
 w3m
 waybar
