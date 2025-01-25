@@ -271,5 +271,8 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 # Emoji
 bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
 
+# Display options
+bindsym $mod+p exec ~/.scripts/display-states.sh
+
 include /etc/sway/config.d/*
 include "$HOME/.config/sway/config.d/$(cat /etc/hostname)"

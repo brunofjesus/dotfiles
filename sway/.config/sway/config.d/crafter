@@ -9,8 +9,6 @@ bindswitch lid:off output $laptop_output enable
 # Make Caps Lock an additional Ctrl
 input * xkb_options "ctrl:nocaps"
 
-# Meta+P to start the mirror
-bindsym $mod+p exec wl-mirror eDP-1
 
 input "type:touchpad" {
 	dwt disabled
