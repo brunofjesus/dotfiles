@@ -274,5 +274,8 @@ bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
 # Display options
 bindsym $mod+p exec ~/.scripts/display-states.sh
 
+# Run script collection
+bindsym $mod+x exec ~/.scripts/general.sh
+
 include /etc/sway/config.d/*
 include "$HOME/.config/sway/config.d/$(cat /etc/hostname)"
