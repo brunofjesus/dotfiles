@@ -3,11 +3,11 @@
 # Config file for storing history
 CONFIG_DIR="$HOME/.config/networkmount"
 IP_HISTORY="$CONFIG_DIR/ip_history"
-SHARE_HISTORY="$CONFIG_DIR/share_history"
+USERNAME_HISTORY="$CONFIG_DIR/username_history"
 
 # Create config directory and history files if they don't exist
 mkdir -p "$CONFIG_DIR"
-touch "$IP_HISTORY" "$SHARE_HISTORY"
+touch "$IP_HISTORY" "$USERNAME_HISTORY"
 
 # Function to prompt user with wofi/fzf
 prompt_user() {
@@ -53,15 +53,33 @@ prompt_user() {
 IP_ADDRESS=$(prompt_user "IP Address" "$IP_HISTORY" "true")
 [[ -z "$IP_ADDRESS" ]] && exit 1
 
-# Get share name
-SHARE_NAME=$(prompt_user "Share Name" "$SHARE_HISTORY" "true")
-[[ -z "$SHARE_NAME" ]] && exit 1
+# Get username
+USERNAME=$(prompt_user "Username" "$USERNAME_HISTORY" "true")
+[[ -z "$USERNAME" ]] && exit 1
 MOUNT_PATH="$HOME/network"
-USERNAME=${4:-$USER}  # Use 4th parameter if provided, otherwise use system username
+
+# Get password (GUI or terminal)
+if tty -s; then
+    read -s -p "Enter password for $USERNAME: " PASSWD
+    echo  # Add newline after password input
+else
+    PASSWD=$(zenity --password --title="Mount Network Share" --text="Enter password for $USERNAME:")
+fi
+
+SHARES=$(smbclient -L $IP_ADDRESS --password=$PASSWD | awk '{ print $1 }' | tail -n +5)
+
+# Choose between fzf and wofi
+if tty -s; then
+    SHARE_NAME=$(echo -e "$SHARES" | fzf --reverse --prompt="Share Name > ")
+else
+    SHARE_NAME=$(echo -e "$SHARES" | wofi -i --dmenu --prompt="Share Name > ")
+fi
+[[ -z "$SHARE_NAME" ]] && exit 1
 
 # Create mount directory if it doesn't exist
 mkdir -p "$MOUNT_PATH/$SHARE_NAME"
 
-sudo mount -t cifs //$IP_ADDRESS/$SHARE_NAME \
+# Mount using the obtained password
+pkexec mount -t cifs //$IP_ADDRESS/$SHARE_NAME \
   "$MOUNT_PATH/$SHARE_NAME" \
-  -o rw,username=$USERNAME,uid=$UID,file_mode=0777,dir_mode=0777,gid=$GROUPS
+  -o rw,username=$USERNAME,uid=$UID,file_mode=0777,dir_mode=0777,password=$PASSWD
