@@ -23,7 +23,7 @@ apply_state() {
     state_name=$(ls "$STATE_DIR" | sed 's/.json$//' | wofi --show dmenu --prompt "Select a display profile to apply:")
     [ -z "$state_name" ] && exit 0
     state_file=$(get_state_file "$state_name")
-    jq -r '.[] | if .current_mode == null then "output \(.name) disable" else "output \(.name) mode \(.current_mode.width)x\(.current_mode.height) position \(.rect.x) \(.rect.y)" end' "$state_file" | while read cmd; do
+    jq -r '.[] | if .current_mode == null then "output \(.name) disable" else "output \(.name) mode \(.current_mode.width)x\(.current_mode.height) position \(.rect.x) \(.rect.y) enable" end' "$state_file" | while read cmd; do
         echo "Applying: $cmd"
         swaymsg "$cmd"
     done
