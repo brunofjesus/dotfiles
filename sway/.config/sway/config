@@ -223,6 +223,9 @@ output "*" bg ~/.wallpaper.png fill
 # APPLICATION SPECIFIC CONFIGURATION #
 ######################################
 
+# Floating windows
+for_window [app_id="floating_kitty"] floating enable
+
 # List all windows here that should have default settings:
 # to get app classes run `swaymsg -t get_tree`
 assign [class="Brave-browser"]      workspace $workspace2
