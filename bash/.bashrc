@@ -19,6 +19,15 @@ case ${TERM} in
     ;;
 esac
 
+# SSH agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
+# Bash completion
 if [[ -r /usr/share/bash-completion/bash_completion ]]; then
   . /usr/share/bash-completion/bash_completion
 fi
@@ -39,14 +48,10 @@ alias mpv-yt-cli="mpv --vo=kitty --vo-kitty-use-shm=yes --profile=sw-fast --real
 alias mpv-yt="mpv --ytdl-format=\"bestvideo[height<=?800][fps<=?30][vcodec!=?vp9]+bestaudio/best\""
 alias ssh="TERM=xterm-256color kitten ssh"
 
+
 function cs () {
     cd $1
     ls
-}
-
-function fzfo() {
-    output=$(fzf --reverse --walker-skip .password-store,.git,node_modules,target,.npm,.nvm,.yarn,.cache --bind 'ctrl-/:change-preview-window(down|hidden|)' --preview 'bat -n --color=always {}' </dev/tty);
-    nohup xdg-open "${output}" > /dev/null &
 }
 
 eval "$(starship init bash)"
