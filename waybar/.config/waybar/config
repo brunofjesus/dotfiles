@@ -133,11 +133,6 @@
       "interval": 5,
       "exec": "free -h | grep Swap | awk '{print $3}'"
     },
-    "custom/ibm_fan": {
-      "format": "󰈐 {}rpm",
-      "interval": 2,
-      "exec": "$HOME/.config/waybar/modules/fan"
-    },
     "custom/fan": {
       "format": "󰈐 {}rpm",
       "interval": 2,
