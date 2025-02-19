@@ -79,7 +79,16 @@ fi
 # Create mount directory if it doesn't exist
 mkdir -p "$MOUNT_PATH/$SHARE_NAME"
 
-# Mount using the obtained password
+# Create a temporary credentials file
+CREDS_FILE=$(mktemp)
+chmod 600 "$CREDS_FILE"
+echo "username=$USERNAME" > "$CREDS_FILE"
+echo "password=$PASSWD" >> "$CREDS_FILE"
+
+# Mount using credentials file
 pkexec mount -t cifs //$IP_ADDRESS/$SHARE_NAME \
   "$MOUNT_PATH/$SHARE_NAME" \
-  -o rw,username=$USERNAME,uid=$UID,file_mode=0777,dir_mode=0777,password=$PASSWD
+  -o rw,uid=$UID,file_mode=0777,dir_mode=0777,credentials="$CREDS_FILE"
+
+# Clean up credentials file
+shred -u "$CREDS_FILE"
