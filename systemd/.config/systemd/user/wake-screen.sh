@@ -18,20 +18,23 @@ fi
 
 lid_state=$(cat "$LID_STATE_FILE" | awk '{print $2}')
 
-# If lid is open and no other display is connected, turn on the internal display
+# If lid is open, check display status
 if [ "$lid_state" = "open" ]; then
-    connected_outputs=$(wlr-randr --json | jq -r '.[] | select(.enabled) | .name')
-    echo "Connected outputs: $connected_outputs"
+    display_status=$(wlr-randr --json)
     
-    # Check if any external display is connected
-    external_connected=$(echo "$connected_outputs" | grep -v "$INTERNAL_DISPLAY")
-    echo "External displays connected: $external_connected"
+    # First check if internal display is enabled
+    internal_enabled=$(echo "$display_status" | jq -r ".[] | select(.name == \"$INTERNAL_DISPLAY\" and .enabled)")
     
-    if [ -z "$external_connected" ]; then
-        echo "No external displays connected"
-        # No external displays, enable the internal display
-        wlr-randr --output "$INTERNAL_DISPLAY" --on
-        echo "Internal display $INTERNAL_DISPLAY enabled"
+    if [ -z "$internal_enabled" ]; then
+        # Check if any external display is connected and enabled
+        external_connected=$(echo "$display_status" | jq -r ".[] | select(.name != \"$INTERNAL_DISPLAY\" and .enabled) | .name")
+        
+        if [ -z "$external_connected" ]; then
+            echo "No displays enabled"
+            # No displays enabled, turn on internal display
+            wlr-randr --output "$INTERNAL_DISPLAY" --on
+            echo "Internal display $INTERNAL_DISPLAY enabled"
+        fi
     fi
 fi
 
