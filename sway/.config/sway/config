@@ -198,8 +198,8 @@ bar {
 
 
 # Extra keybinds:
-bindsym $mod+F1 exec swaylock -f -c000000 
-bindsym $mod+F2 exec swaylock -f -c000000 && systemctl suspend
+bindsym $mod+F1 exec swaylock -f -c1e1e2e --inside-color 1e1e2e -n
+bindsym $mod+F2 exec swaylock -f -c1e1e2e --inside-color 1e1e2e -n && systemctl suspend
 
 # Execute the gnome keyring
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -242,8 +242,8 @@ exec udiskie --tray --notify
 ### Idle configuration
 exec swayidle -w \
          timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         timeout 320 'swaylock -f -c 000000' \
-         before-sleep 'swaylock -f -c 000000'
+         timeout 320 'swaylock -f -c1e1e2e --inside-color 1e1e2e -n' \
+         before-sleep 'swaylock -f -c1e1e2e --inside-color 1e1e2e -n'
 
 # Redshift the display in the evening:
 #exec gammastep -m wayland -l 48.36:10.89
