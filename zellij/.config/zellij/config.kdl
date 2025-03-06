@@ -18,6 +18,7 @@ keybinds clear-defaults=true {
             // Unlock Zellij.
             SwitchToMode "Normal";
         }
+        bind "Alt f" { ToggleFloatingPanes; }
     }
     pane {
         bind "left" { MoveFocus "left"; }
