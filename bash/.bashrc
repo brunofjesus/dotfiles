@@ -47,8 +47,17 @@ alias ll="lsd -l"
 alias pass="PINENTRY_USER_DATA=\"curses\" pass"
 alias mpv-yt-cli="mpv --vo=kitty --vo-kitty-use-shm=yes --profile=sw-fast --really-quiet --ytdl-format=\"bestvideo[height<=?360][fps<=?30][vcodec!=?vp9]+bestaudio/best\""
 alias mpv-yt="mpv --ytdl-format=\"bestvideo[height<=?800][fps<=?30][vcodec!=?vp9]+bestaudio/best\""
-alias ssh="TERM=xterm-256color kitten ssh"
 
+if [[ "$TERM" == "xterm-kitty" && -z "$ZELLIJ" ]]; then
+  alias ssh="TERM=xterm-256color kitten ssh"
+
+  # Regular SSH command function without kitty kitten
+  function cssh() {
+      TERM=xterm-256color command ssh "$@"
+  }
+else
+  alias ssh="TERM=xterm-256color ssh"
+fi
 
 function cs () {
     cd $1

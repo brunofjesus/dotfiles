@@ -145,7 +145,7 @@ layout {
           mode_normal        "#[bg=$base,fg=$green]#[bg=$green,fg=$crust,bold]NORMAL#[bg=$base,fg=$green]"
           mode_tmux          "#[bg=$base,fg=$mauve]#[bg=$mauve,fg=$crust,bold]TMUX#[bg=$base,fg=$mauve]"
           mode_locked        "#[bg=$base,fg=$red]#[bg=$red,fg=$crust,bold]LOCKED#[bg=$base,fg=$red]"
-          mode_pane          "#[bg=$base,fg=teal]#[bg=$teal,fg=$crust,bold]PANE#[bg=$base,fg=teal]"
+          mode_pane          "#[bg=$base,fg=$teal]#[bg=$teal,fg=$crust,bold]PANE#[bg=$base,fg=$teal]"
           mode_tab           "#[bg=$base,fg=$teal]#[bg=$teal,fg=$crust,bold]TAB#[bg=$base,fg=$teal]"
           mode_scroll        "#[bg=$base,fg=$flamingo]#[bg=$flamingo,fg=$crust,bold]SCROLL#[bg=$base,fg=$flamingo]"
           mode_enter_search  "#[bg=$surfaco,fg=$flamingo]#[bg=$flamingo,fg=$crust,bold]ENT-SEARCH#[bg=$surfaco,fg=$flamingo]"
