@@ -64,6 +64,35 @@ function cs () {
     ls
 }
 
+# Load environment variables from .env file
+function loadenv() {
+  local env_file="${1:-.env}"
+  
+  if [[ -f "$env_file" ]]; then
+    while IFS= read -r line || [[ -n "$line" ]]; do
+      # Skip empty lines and comments
+      [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+      
+      # Remove any comments from the end of the line
+      line="${line%%#*}"
+      
+      # Trim whitespace
+      line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+      
+      # Export the variable
+      export "${line?}"
+    done < "$env_file"
+  else
+    echo "Error: $env_file file not found"
+    return 1
+  fi
+}
+
+# Auto-load .env file in the current directory if it exists
+if [[ -f ".env" ]]; then
+  loadenv
+fi
+
 eval "$(starship init bash)"
 eval "$(fzf --bash)"
 source /usr/share/nvm/init-nvm.sh
