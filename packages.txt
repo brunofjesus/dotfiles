@@ -7,6 +7,7 @@ bat
 bitwarden
 bluetui
 bluez
+bluez-utils
 brave-bin
 brightnessctl
 bruno-bin
@@ -15,18 +16,23 @@ catppuccin-gtk-theme-mocha
 chromium
 cups
 cups-pdf
+dbeaver
 dmenu
 dnsmasq
 docker
+docker-buildx
 docker-compose
+dosfstools
 dua-cli
 efibootmgr
+exfatprogs
 fastfetch
-foot
+fd
 framework-system-git
 freerdp
 fwupd
 fzf
+gamescope
 gimp
 git
 gnome-keyring
@@ -41,6 +47,7 @@ htop
 hugo
 hunspell-pt_pt
 imagemagick
+inetutils
 iptables-nft
 iw
 iwd
@@ -49,7 +56,6 @@ k9s
 kitty
 kubectl
 lazydocker
-lazygit
 libpulse
 libreoffice-fresh
 libreoffice-fresh-pt
@@ -59,7 +65,6 @@ lightdm-gtk-greeter
 linux
 linux-firmware
 lsd
-ly
 mako
 man-db
 minecraft-launcher
@@ -69,7 +74,6 @@ neovim
 network-manager-applet
 networkmanager
 nextcloud-client
-nmap
 noto-fonts-emoji
 nss-mdns
 nvm
@@ -86,15 +90,15 @@ pkgfile
 polkit-gnome
 power-profiles-daemon
 protobuf
-protonmail-bridge-core
 python-pillow
 qemu-desktop
-ranger-git
 remmina
 ripgrep
+rpi-imager
 seahorse
 slurp
 smartmontools
+solaar
 spicetify-cli
 spotify-launcher
 starship
@@ -111,6 +115,7 @@ thunderbird
 torbrowser-launcher
 traceroute
 ttf-firacode-nerd
+ttf-google-fonts-git
 udiskie
 unrar
 unzip
@@ -123,6 +128,7 @@ vulkan-radeon
 w3m
 waybar
 wdisplays
+wf-recorder
 wget
 wireless-regdb
 wireless_tools
@@ -132,6 +138,7 @@ wl-mirror
 wlr-randr
 wofi
 xdg-desktop-portal-gtk
+xdg-desktop-portal-wlr
 xdg-utils
 xf86-video-amdgpu
 xf86-video-ati
@@ -139,7 +146,9 @@ xorg-server
 xorg-xinit
 xorg-xwayland
 yay
+yazi
 yt-dlp
 zathura
 zathura-pdf-mupdf
+zellij
 zram-generator
