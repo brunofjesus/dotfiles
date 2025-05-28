@@ -7,23 +7,23 @@ else
   source ~/.env
 fi
 
-OPTIONS="Sala\nCozinha\nGaragem\nEntrada"
+OPTIONS="🛋️ Sala\n🧑‍🍳 Cozinha\n🚘 Garagem\n🚪 Entrada"
 
-CHOICE=$(echo -e "$OPTIONS" | $RUNNER --prompt "Camera: ")
+CHOICE=$(echo -e "$OPTIONS" | $RUNNER --prompt "Camera: " | awk '{print tolower($2)}' )
 
 
 case "$CHOICE" in
-    "Sala")
+    "sala")
         mpv rtsp://admin:${CCTV_PASSWORD}@172.30.1.90/Streaming/Channels/101
         ;;
-    "Cozinha")
+    "cozinha")
         mpv rtsp://admin:${CCTV_PASSWORD}@172.30.1.91/Streaming/Channels/101
         ;;
 
-    "Garagem")
+    "garagem")
         mpv rtsp://admin:${CCTV_PASSWORD}@172.30.1.92/Streaming/Channels/101
         ;;
-    "Entrada")
+    "entrada")
         mpv rtsp://admin:${CCTV_PASSWORD}@172.30.1.93/Streaming/Channels/101
         ;;
 esac
