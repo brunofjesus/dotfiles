@@ -1,7 +1,5 @@
+@define-color background #313244;
 @define-color accent #7c7f93;
-@define-color txt #cdd6f4;
-@define-color bg #000000;
-@define-color bg2 #181825;
 
 * {
   font-family: "FiraCode Nerd Font", monospace;
@@ -10,11 +8,6 @@
 
 /* Window */
 window {
-  margin: 0px;
-  padding: 5px;
-  border: 3px solid @accent;
-  border-radius: 7px;
-  background-color: @black;
   animation: slideIn 0.1s ease-in-out both;
 }
 
@@ -34,7 +27,7 @@ window {
   margin: 0px;
   padding: 0px;
   border: none;
-  background-color: @bg;
+  background-color: @background;
   animation: fadeIn 0.1s ease-in-out both;
 }
 
@@ -52,9 +45,9 @@ window {
 /* Outer Box */
 #outer-box {
   margin: 5px;
-  padding: 5px;
-  border: none;
-  background-color: @bg;
+  border: 3px solid transparent;
+  border-radius: 15px;
+  background-color: @background;
 }
 
 /* Scroll */
@@ -70,7 +63,7 @@ window {
   padding: 5px;
   border: none;
   color: @accent;
-  background-color: @bg2;
+  background-color: #45475a;
   animation: fadeIn 0.1s ease-in-out both;
 }
 
@@ -79,7 +72,7 @@ window {
   margin: 5px;
   padding: 5px;
   border: none;
-  color: @txt;
+  color: #cdd6f4;
   animation: fadeIn 0.1s ease-in-out both;
 }
 
