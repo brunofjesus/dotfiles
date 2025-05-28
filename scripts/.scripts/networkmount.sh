@@ -63,7 +63,7 @@ if tty -s; then
     read -s -p "Enter password for $USERNAME: " PASSWD
     echo  # Add newline after password input
 else
-    PASSWD=$(zenity --password --title="Mount Network Share" --text="Enter password for $USERNAME:")
+    PASSWD=$(echo "" | wofi --dmenu --password --prompt="Enter network share password for $USERNAME" -L 1 --hide-scroll)
 fi
 
 SHARES=$(smbclient -L $IP_ADDRESS --password=$PASSWD | awk '{ print $1 }' | tail -n +5)
