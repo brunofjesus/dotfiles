@@ -27,6 +27,7 @@ apply_state() {
         echo "Applying: $cmd"
         swaymsg "$cmd"
     done
+    makoctl reload
     notify-send "Display Profile Applied" "Display state '$state_name' applied successfully."
 }
 
