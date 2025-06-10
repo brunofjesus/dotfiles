@@ -25,7 +25,7 @@ done <<< "$PAIRED"
 STATUS_LIST=$(echo -e "$STATUS_LIST" | sed '$ s/\\n$//')
 
 
-CHOICE=$(echo -e "$STATUS_LIST" | $RUNNER --prompt "Toggle connection: ")
+CHOICE=$(echo -e "$STATUS_LIST" | $RUNNER --prompt "Toggle connection: ") || exit 0
 
 # Extract MAC address and connection status
 MAC_ADDRESS=$(echo "$CHOICE" | awk '{print $2}')
