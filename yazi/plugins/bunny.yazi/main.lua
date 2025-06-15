@@ -1,3 +1,4 @@
+--- @since 25.5.28
 local function debug(...)
   local function toReadableString(val)
     if type(val) == "table" then
@@ -250,7 +251,7 @@ local cd = function(selected_hop, config)
     return
   end
   -- Assuming that if I can fs.read_dir, then this will also succeed
-  ya.mgr_emit("cd", { selected_hop.path })
+  ya.emit("cd", { selected_hop.path })
   if config.notify then
     info('Hopped to ' .. selected_hop.desc)
   end
@@ -286,7 +287,7 @@ local attempt_hop = function(hops, config)
     info("Press a key to create new hop")
     local char_idx = ya.which { cands = mark_cands, silent = true }
     if char_idx ~= nil then
-      local selected_char = string.upper(mark_cands[char_idx].on)
+      local selected_char = mark_cands[char_idx].on
       local cwd = get_cwd()
       table.insert(hops, { key = selected_char, path = cwd, desc = path_to_desc(cwd, config.desc_strategy) })
       set_state("hops", sort_hops(hops))
@@ -313,7 +314,9 @@ local function init()
   set_state("config", {
     desc_strategy = desc_strategy,
     fuzzy_cmd = options.fuzzy_cmd or "fzf",
-    notify = options.notify or false
+    notify = options.notify or false,
+    ephemeral = options.ephemeral or true,
+    tabs = options.tabs or true,
   })
   -- Set hops after ensuring they all have a description
   local hops = {}

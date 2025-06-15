@@ -40,6 +40,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 export EDITOR=nvim
+export YAZI_CONFIG_HOME=~/dotfiles/yazi
 
 #alias vim="nvim"
 alias ls="lsd"
@@ -49,6 +50,7 @@ alias mpv-yt-cli="mpv --vo=kitty --vo-kitty-use-shm=yes --profile=sw-fast --real
 alias mpv-yt="mpv --ytdl-format=\"bestvideo[height<=?800][fps<=?30][vcodec!=?vp9]+bestaudio/best\""
 alias cat="bat"
 
+# If on kitty and not using ZelliJ use ssh kitten
 if [[ "$TERM" == "xterm-kitty" && -z "$ZELLIJ" ]]; then
   alias ssh="TERM=xterm-256color kitten ssh"
 
