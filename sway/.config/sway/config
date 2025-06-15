@@ -275,7 +275,7 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
 
 # Display options
-bindsym $mod+p exec ~/.scripts/display-states.sh
+bindsym $mod+p exec ~/.scripts/display-states.sh apply Laptop
 
 # Run script collection
 bindsym $mod+x exec ~/.scripts/general.sh

@@ -64,11 +64,11 @@ mirror_display() {
 
 # Main menu
 main_menu() {
-    choice=$(printf "🪞 Mirror Display\n💾 Store Layout\n✅ Apply Layout\n🗑️ Delete Layout\n🚪 Exit" | wofi --show dmenu --prompt "Choose an action:" |  awk '{print tolower($2)}')
+    choice=$(printf "🪞 Mirror Display\n💾 Store Layout\n✅ Choose Layout\n🗑️ Delete Layout\n🚪 Exit" | wofi --show dmenu --prompt "Choose an action:" |  awk '{print tolower($2)}')
     case $choice in
         mirror) mirror_display ;;
         store) store_state ;;
-        apply) apply_state ;;
+        choose) choose_state ;;
         delete) delete_state ;;
         *) exit 0 ;;
     esac
