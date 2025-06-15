@@ -19,10 +19,25 @@ store_state() {
 }
 
 # Apply a saved display state
-apply_state() {
+choose_state() {
     state_name=$(ls "$STATE_DIR" | sed 's/.json$//' | wofi --show dmenu --prompt "Select a display profile to apply:")
+    [ -z "$state_name" ] && return 1
+    apply_state "$state_name"
+}
+
+apply_state() {
+    state_name="$1"
     [ -z "$state_name" ] && exit 0
     state_file=$(get_state_file "$state_name")
+
+    # Disconnect all currently enabled displays first
+    echo "Disconnecting all current displays..."
+    swaymsg -t get_outputs | jq -r '.[] | select(.active) | "output \(.name) disable"' | while read cmd; do
+        echo "Disabling: $cmd"
+        swaymsg "$cmd"
+    done
+ 
+    # Apply the new display configuration
     jq -r '.[] | if .current_mode == null then "output \(.name) disable" else "output \(.name) mode \(.current_mode.width)x\(.current_mode.height) position \(.rect.x) \(.rect.y) enable" end' "$state_file" | while read cmd; do
         echo "Applying: $cmd"
         swaymsg "$cmd"
@@ -58,6 +73,17 @@ main_menu() {
         *) exit 0 ;;
     esac
 }
+
+# Check for direct call to apply
+if [ $# -gt 0 ] && [ "$1" = "apply" ]; then
+    if [ -n "$2" ]; then
+        apply_state "$2"
+        exit 0
+    else
+        echo "Error: State name required for apply command"
+        exit 1
+    fi
+fi
 
 # Run the main menu
 main_menu
