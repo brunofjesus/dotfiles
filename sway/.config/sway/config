@@ -138,7 +138,6 @@ bindsym $mod+Shift+c reload
 # exit sway (logs you out of your X session)
 #bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your X session.' -b 'Yes' 'swaymsg exit'"
 bindsym $mod+Shift+e exec "$HOME/.scripts/powermenu.sh"
-bindsym $mod+Shift+p exec "$HOME/.scripts/powerprofiles.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -276,6 +275,7 @@ bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
 
 # Display options
 bindsym $mod+p exec ~/.scripts/display-states.sh apply Laptop
+bindsym $mod+Shift+p exec ~/.scripts/display-states.sh
 
 # Run script collection
 bindsym $mod+x exec ~/.scripts/general.sh
