@@ -53,7 +53,7 @@ get_datetime_input() {
         time_input=$(zenity --entry --title="$label Time" --text="Enter time (HH:MM)" --entry-text="$default_time")
         [ $? -ne 0 ] && exit 1
         echo "$(to_utc_format "$date_input" "$time_input")"
-#    fi
+    fi
 }
 
 CAMERA_ID=$(choose_camera)
