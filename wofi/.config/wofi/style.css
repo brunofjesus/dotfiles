@@ -8,6 +8,9 @@
 
 /* Window */
 window {
+  background-color: transparent;
+  border: 5px solid @background;
+  border-radius: 15px;
   animation: slideIn 0.1s ease-in-out both;
 }
 
@@ -45,8 +48,6 @@ window {
 /* Outer Box */
 #outer-box {
   margin: 5px;
-  border: 3px solid transparent;
-  border-radius: 15px;
   background-color: @background;
 }
 
