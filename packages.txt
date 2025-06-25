@@ -36,7 +36,6 @@ gamescope
 gimp
 git
 gnome-keyring
-gnu-netcat
 gnucash
 grim
 gst-plugin-pipewire
@@ -63,7 +62,9 @@ libvirt
 lightdm
 lightdm-gtk-greeter
 linux
-linux-firmware
+linux-firmware-amdgpu
+linux-firmware-mediatek
+linux-firmware-other
 lsd
 mako
 man-db
@@ -73,10 +74,12 @@ nano
 neovim
 network-manager-applet
 networkmanager
+newsboat
 nextcloud-client
 noto-fonts-emoji
 nss-mdns
 nvm
+openbsd-netcat
 openssl-1.1
 pacman-contrib
 papirus-folders-catppuccin-git
@@ -91,6 +94,7 @@ polkit-gnome
 power-profiles-daemon
 protobuf
 python-pillow
+python-pipx
 qemu-desktop
 remmina
 ripgrep
@@ -115,7 +119,6 @@ thunderbird
 torbrowser-launcher
 traceroute
 ttf-firacode-nerd
-ttf-google-fonts-git
 udiskie
 unrar
 unzip
