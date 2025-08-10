@@ -112,3 +112,5 @@ fi
 eval "$(starship init bash)"
 eval "$(fzf --bash)"
 source /usr/share/nvm/init-nvm.sh
+
+~/.scripts/timezone-display.sh

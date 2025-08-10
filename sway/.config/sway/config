@@ -41,10 +41,10 @@ bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10
   bindsym $mod+$up focus up
   bindsym $mod+$right focus right
   # Or use $mod+[up|down|left|right]
-  bindsym $mod+Left focus left
-  bindsym $mod+Down focus down
-  bindsym $mod+Up focus up
-  bindsym $mod+Right focus right
+  #bindsym $mod+Left focus left
+  #bindsym $mod+Down focus down
+  #bindsym $mod+Up focus up
+  #bindsym $mod+Right focus right
 
   # Move the focused window with the same, but add Shift
   bindsym $mod+Shift+$left move left

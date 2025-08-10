@@ -16,7 +16,7 @@ case $op in
                 powerprofilesctl set balanced
                 ;;
         powersave)
-                powerprofilesctl set powersave
+                powerprofilesctl set power-saver
                 ;;
         performance)
                 powerprofilesctl set performance
