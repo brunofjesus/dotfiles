@@ -4,6 +4,7 @@ base
 base-devel
 bash-completion
 bat
+bind
 bitwarden
 bluetui
 bluez
@@ -47,6 +48,7 @@ hugo
 hunspell-pt_pt
 imagemagick
 inetutils
+iperf3
 iptables-nft
 iw
 iwd
@@ -80,6 +82,7 @@ noto-fonts-emoji
 nss-mdns
 nvm
 openbsd-netcat
+opencode
 openssl-1.1
 pacman-contrib
 papirus-folders-catppuccin-git
