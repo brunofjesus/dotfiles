@@ -42,7 +42,12 @@ fi
 # Detect if URL is from YouTube or Reddit
 if echo "$URL" | grep -q "youtube\|youtu.be"; then
     echo "Detected YouTube URL"
-    kitty --class "floating_kitty" -e bash -c "echo 'Starting YouTube download...'; yt-dlp -o '$HOME/Videos/%(title)s.%(ext)s' '$URL'; echo 'Download complete! Press Enter to close...'; read"
+    if tty -s; then
+        yt-dlp -o '$HOME/Videos/%(title)s.%(ext)s' "$URL"
+      else
+        kitty --class "floating_kitty" -e bash -c "echo 'Starting YouTube download...'; yt-dlp -o '$HOME/Videos/%(title)s.%(ext)s' '$URL'; echo 'Download complete! Press Enter to close...'; read"
+    fi
+
 else
     echo "Detected Reddit URL"
     TITLE=$(echo $URL| cut -d'/' -f 8)
