@@ -18,3 +18,7 @@ input "type:touchpad" {
 # Start hydroxide
 # exec --no-startup-id ~/.local/bin/hydroxide serve
 #
+
+# Automatically hide cursor
+seat seat0 hide_cursor 3000
+
