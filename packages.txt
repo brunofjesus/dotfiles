@@ -157,4 +157,5 @@ yt-dlp
 zathura
 zathura-pdf-mupdf
 zellij
+zoxide
 zram-generator
