@@ -20,3 +20,7 @@ print_command=true
 insensitive=true
 key_expand=Tab
 prompt= Hmm, what do you want to run?
+key_up=uparrow,Ctrl-k
+key_down=downarrow,Ctrl-j
+key_left=leftarrow,Ctrl-h
+key_right=rightarrow,Ctrl-l
