@@ -113,5 +113,3 @@ eval "$(starship init bash)"
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
 source /usr/share/nvm/init-nvm.sh
-
-~/.scripts/timezone-display.sh
