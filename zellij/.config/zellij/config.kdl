@@ -298,7 +298,7 @@ keybinds clear-defaults=true {
 // changing these requires a restart to take effect
 plugins {
     about location="zellij:about"
-    autolock location="file:/home/bruno/.config/zellij/plugins/zellij-autolock.wasm" {
+    autolock location="file:/Users/bruno/.config/zellij/plugins/zellij-autolock.wasm" {
         is_enabled true
         print_to_log true
         reaction_seconds "1"
