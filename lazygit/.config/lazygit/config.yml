@@ -1,25 +1,51 @@
+# Catppuccin Mocha
+#gui:
+# theme:
+#  activeBorderColor:
+#    - '#f2cdcd'
+#    - bold
+#  inactiveBorderColor:
+#    - '#a6adc8'
+#  optionsTextColor:
+#    - '#89b4fa'
+#  selectedLineBgColor:
+#    - '#313244'
+#  cherryPickedCommitBgColor:
+#    - '#45475a'
+#  cherryPickedCommitFgColor:
+#    - '#f2cdcd'
+#  unstagedChangesColor:
+#    - '#f38ba8'
+#  defaultFgColor:
+#    - '#cdd6f4'
+#  searchingActiveBorderColor:
+#    - '#f9e2af'
+#
+#authorColors:
+#  '*': '#b4befe'
+
+# Catppuccin Latte
 gui:
  theme:
   activeBorderColor:
-    - '#f2cdcd'
+    - '#dd7878'
     - bold
   inactiveBorderColor:
-    - '#a6adc8'
+    - '#8c8fa1'
   optionsTextColor:
-    - '#89b4fa'
+    - '#1e66f5'
   selectedLineBgColor:
-    - '#313244'
+    - '#ccd0da'
   cherryPickedCommitBgColor:
-    - '#45475a'
+    - '#bcc0cc'
   cherryPickedCommitFgColor:
-    - '#f2cdcd'
+    - '#dd7878'
   unstagedChangesColor:
-    - '#f38ba8'
+    - '#d20f39'
   defaultFgColor:
-    - '#cdd6f4'
+    - '#4c4f69'
   searchingActiveBorderColor:
-    - '#f9e2af'
+    - '#df8e1d'
 
 authorColors:
-  '*': '#b4befe'
-
+  '*': '#8839ef'

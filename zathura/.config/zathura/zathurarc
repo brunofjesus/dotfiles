@@ -1,4 +1,4 @@
-include catppuccin-mocha
+include catppuccin-latte
 
 map <C-i> recolor
 

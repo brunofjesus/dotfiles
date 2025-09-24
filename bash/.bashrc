@@ -44,14 +44,28 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
+export COLOR_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme | tr -d "'\"")
+
 export PATH="$PATH:$HOME/go/bin:$HOME/.local/bin:$HOME/.scripts"
-export LS_COLORS="$(vivid generate catppuccin-mocha)"
+
+if [[ $COLOR_SCHEME == 'prefer-light' ]]; then
+  export THEME="catppuccin-latte"
+  export FZF_DEFAULT_OPTS=" \
+  --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
+  --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
+  --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39 \
+  --color=border:#acb0be"
+else
+  export THEME="catppuccin-mocha"
+  export FZF_DEFAULT_OPTS=" \
+  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+fi
+
 export PINENTRY_USER_DATA="gnome3"
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 export EDITOR=nvim
+export LS_COLORS="$(vivid generate $THEME)"
 export YAZI_CONFIG_HOME=~/dotfiles/yazi
 
 #alias vim="nvim"
@@ -64,6 +78,7 @@ alias cat="bat"
 alias batc="bat -l conf -p"
 alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
 alias man="batman"
+alias reload="source ~/.bashrc && echo 'Reloaded!'"
 
 # If on kitty and not using ZelliJ use ssh kitten
 if [[ "$TERM" == "xterm-kitty" && -z "$ZELLIJ" ]]; then
