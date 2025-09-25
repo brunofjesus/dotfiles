@@ -28,7 +28,7 @@ start_mpv() {
       rm -f "$SOCKET"
       echo "Starting mpv..."
       mpv --force-window --idle=yes --input-ipc-server="$SOCKET" \
-            --ytdl-format="best[height<=1080][fps<=30]/bestvideo[height<=1080][fps<=30]+bestaudio/best[height<=1080]" &
+         --ytdl-format="bestvideo[height<=1080]+bestaudio/best[height<=1080]" &
  
       local mpv_pid=$!
       echo "$mpv_pid" > "$PIDFILE"
