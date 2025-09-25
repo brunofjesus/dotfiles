@@ -4,6 +4,7 @@ base
 base-devel
 bash-completion
 bat
+bat-extras
 bind
 bitwarden
 bluetui

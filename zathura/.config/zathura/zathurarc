@@ -1,3 +1,5 @@
-include catppuccin-mocha
+include catppuccin-latte
+
+map <C-i> recolor
 
 set font 'FiraCodeNFM-Reg 14'
