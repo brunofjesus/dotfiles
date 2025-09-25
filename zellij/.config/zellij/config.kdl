@@ -302,7 +302,7 @@ plugins {
         is_enabled true
         print_to_log true
         reaction_seconds "1"
-        triggers "nvim|vim|git|fzf|zoxide|atuin|k9s|lazygit|lazydocker|lazysql"
+        triggers "nvim|vim|git|fzf|zoxide|atuin|k9s|lazygit|lazydocker|lazysql|opencode"
     }
     compact-bar location="zellij:compact-bar"
     configuration location="zellij:configuration"
