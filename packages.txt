@@ -83,7 +83,7 @@ noto-fonts-emoji
 nss-mdns
 nvm
 openbsd-netcat
-opencode
+opencode-bin
 openssl-1.1
 pacman-contrib
 papirus-folders-catppuccin-git
