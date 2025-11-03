@@ -30,9 +30,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start program launcher
-#bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10 --style ~/.config/sway/wofi.css
 bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10 
-#bindsym $mod+Shift+s exec grimshot --notify copy area
 
 # change focus
   # Move your focus around
@@ -40,11 +38,6 @@ bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10
   bindsym $mod+$down focus down
   bindsym $mod+$up focus up
   bindsym $mod+$right focus right
-  # Or use $mod+[up|down|left|right]
-  #bindsym $mod+Left focus left
-  #bindsym $mod+Down focus down
-  #bindsym $mod+Up focus up
-  #bindsym $mod+Right focus right
 
   # Move the focused window with the same, but add Shift
   bindsym $mod+Shift+$left move left
@@ -97,15 +90,15 @@ set $workspace10 "0"
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
 
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
 
 
 # move focused container to workspace
@@ -136,8 +129,8 @@ bindsym $mod+0 workspace $workspace10
 bindsym $mod+Shift+c reload
 
 # exit sway (logs you out of your X session)
-#bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your X session.' -b 'Yes' 'swaymsg exit'"
 bindsym $mod+Shift+e exec "$HOME/.scripts/powermenu.sh"
+bindsym $mod+Shift+d exec "$HOME/.scripts/dark-mode.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -215,8 +208,6 @@ bindsym $mod+t exec makoctl dismiss -a
 # Execute Nextcloud
 exec --no-startup-id sleep 2 && nextcloud
 
-# Wallpaper
-output "*" bg ~/.wallpaper.png center #eff1f5
 
 ######################################
 # APPLICATION SPECIFIC CONFIGURATION #
@@ -274,7 +265,7 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
 
 # Display options
-bindsym $mod+p exec ~/.scripts/display-states.sh apply Laptop
+bindsym $mod+p exec ~/.scripts/display-states.sh apply Standalone
 bindsym $mod+Shift+p exec ~/.scripts/display-states.sh
 
 # Run script collection
