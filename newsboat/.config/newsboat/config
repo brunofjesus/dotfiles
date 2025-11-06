@@ -1,0 +1,35 @@
+include ~/.config/newsboat/style
+include ~/.config/newsboat/credentials
+
+# Nexcloud configuration
+prepopulate-query-feeds yes
+
+urls-source "ocnews"
+
+# --- display
+feed-sort-order unreadarticlecount-asc
+text-width 80
+# ---
+
+# Open on mpv when [, + v]
+macro v set browser "~/.scripts/yt-play.sh %u > /dev/null 2>&1 &" ; open-in-browser ; set browser "brave %u"
+# Copy to clipboard when [, + y]
+macro y set browser "echo %u | wl-copy" ; open-in-browser ; set browser "brave %u"
+
+# Automatic feed reloading
+auto-reload yes
+reload-time 10
+
+# Vim-like keybindings
+## unbind keys
+#unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+
+## bind keys - vim style
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit

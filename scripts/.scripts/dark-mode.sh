@@ -1,29 +1,29 @@
 #!/bin/bash
 
-# Function to get current theme
-get_current_theme() {
-    current=$(gsettings get org.gnome.desktop.interface color-scheme)
-    if [[ $current == "'prefer-dark'" ]]; then
-        echo "Current:🌒 Dark Mode"
-    else
-        echo "Current:🔆 Light Mode"
-    fi
-}
-
 # Set the theme
 set_theme() {
     case $1 in
         "dark")
             gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+            gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 
+            gsettings set org.gnome.desktop.interface icon-theme 'Yaru-blue-dark' 
+            $HOME/.config/waybar/set-theme.sh 'frappe'
+            $HOME/.config/sway/set-theme.sh 'frappe'
+            $HOME/.config/wofi/set-theme.sh 'frappe'
+            $HOME/.config/zathura/set-theme.sh 'frappe'
+            $HOME/.config/newsboat/set-theme.sh 'frappe'
             ;;
         "light")
             gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+            gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita' 
+            gsettings set org.gnome.desktop.interface icon-theme 'Yaru-blue' 
+            $HOME/.config/waybar/set-theme.sh 'latte'
+            $HOME/.config/sway/set-theme.sh 'latte'
+            $HOME/.config/wofi/set-theme.sh 'latte'
+            $HOME/.config/newsboat/set-theme.sh 'latte'
             ;;
     esac
 }
-
-# Show current theme
-current_theme=$(get_current_theme)
 
 # Create menu options
 options="🌒 Dark Mode\n🔆 Light Mode"
@@ -31,10 +31,10 @@ options="🌒 Dark Mode\n🔆 Light Mode"
 # Check if running from terminal
 if tty -s; then
     # Use fzf if in terminal
-    choice=$(echo -e "$current_theme\n$options" | fzf --reverse | awk '{print tolower($2)}')
+    choice=$(echo -e "$options" | fzf --reverse | awk '{print tolower($2)}')
 else
     # Use wofi if not in terminal
-    choice=$(echo -e "$current_theme\n$options" | wofi -i --dmenu | awk '{print tolower($2)}')
+    choice=$(echo -e "$options" | wofi -i --dmenu | awk '{print tolower($2)}')
 fi
 
 # Apply the selected theme

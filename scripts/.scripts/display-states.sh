@@ -38,7 +38,7 @@ apply_state() {
     done
  
     # Apply the new display configuration
-    jq -r '.[] | if .current_mode == null then "output \(.name) disable" else "output \(.name) mode \(.current_mode.width)x\(.current_mode.height) position \(.rect.x) \(.rect.y) enable" end' "$state_file" | while read cmd; do
+    jq -r '.[] | if .current_mode == null then "output \(.name) disable" else "output \(.name) mode \(.current_mode.width)x\(.current_mode.height) position \(.rect.x) \(.rect.y) scale \(.scale // 1.0) enable" end' "$state_file" | while read cmd; do
         echo "Applying: $cmd"
         swaymsg "$cmd"
     done
