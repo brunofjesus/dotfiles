@@ -12,6 +12,10 @@ set_theme() {
             $HOME/.config/wofi/set-theme.sh 'frappe'
             $HOME/.config/zathura/set-theme.sh 'frappe'
             $HOME/.config/newsboat/set-theme.sh 'frappe'
+            $HOME/.config/fzf/set-theme.sh 'frappe'
+            $HOME/.config/lsd/set-theme.sh 'frappe'
+            $HOME/.config/bat/set-theme.sh 'frappe'
+            $HOME/.config/lazygit/set-theme.sh 'frappe'
             ;;
         "light")
             gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
@@ -21,6 +25,10 @@ set_theme() {
             $HOME/.config/sway/set-theme.sh 'latte'
             $HOME/.config/wofi/set-theme.sh 'latte'
             $HOME/.config/newsboat/set-theme.sh 'latte'
+            $HOME/.config/fzf/set-theme.sh 'latte'
+            $HOME/.config/lsd/set-theme.sh 'latte'
+            $HOME/.config/bat/set-theme.sh 'latte'
+            $HOME/.config/lazygit/set-theme.sh 'latte'
             ;;
     esac
 }
