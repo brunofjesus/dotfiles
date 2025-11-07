@@ -16,6 +16,7 @@ set_theme() {
             $HOME/.config/lsd/set-theme.sh 'frappe'
             $HOME/.config/bat/set-theme.sh 'frappe'
             $HOME/.config/lazygit/set-theme.sh 'frappe'
+            $HOME/.config/nvim/set-theme.sh 'dark'
             ;;
         "light")
             gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
@@ -29,6 +30,7 @@ set_theme() {
             $HOME/.config/lsd/set-theme.sh 'latte'
             $HOME/.config/bat/set-theme.sh 'latte'
             $HOME/.config/lazygit/set-theme.sh 'latte'
+            $HOME/.config/nvim/set-theme.sh 'light'
             ;;
     esac
 }
