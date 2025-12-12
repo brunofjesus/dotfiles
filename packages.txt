@@ -88,7 +88,8 @@ opencode-bin
 openssl-1.1
 pacman-contrib
 pavucontrol
-pcmanfm-gtk3
+pcmanfm
+picocom
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -108,9 +109,9 @@ seahorse
 slurp
 smartmontools
 solaar
-spicetify-cli
 spotify-launcher
 starship
+steam
 stow
 swappy
 sway
@@ -159,5 +160,6 @@ yt-dlp
 zathura
 zathura-pdf-mupdf
 zellij
+zip
 zoxide
 zram-generator
