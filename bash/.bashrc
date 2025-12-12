@@ -46,20 +46,9 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Configure color scheme and theme
-configure_color_scheme() {
-  export COLOR_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme | tr -d "'\"")
-  
-  if [[ $COLOR_SCHEME == 'prefer-light' ]] || [[ $COLOR_SCHEME == 'default' ]]; then
-    export THEME="catppuccin-latte"
-  else
-    export THEME="catppuccin-frappe"
-  fi
-}
+export THEME="catppuccin-frappe"
 export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/fzfrc"
 export PATH="$PATH:$HOME/go/bin:$HOME/.local/bin:$HOME/.scripts"
-
-# Initialize color scheme
-configure_color_scheme
 
 export PINENTRY_USER_DATA="gnome3"
 export EDITOR=nvim
@@ -129,4 +118,7 @@ fi
 eval "$(starship init bash)"
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
-source /usr/share/nvm/init-nvm.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
