@@ -64,6 +64,7 @@ configure_color_scheme
 export PINENTRY_USER_DATA="gnome3"
 export EDITOR=nvim
 export YAZI_CONFIG_HOME=~/dotfiles/yazi
+export MANPAGER="nvim +Man!"
 
 #alias vim="nvim"
 
