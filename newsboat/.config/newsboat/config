@@ -11,6 +11,8 @@ feed-sort-order unreadarticlecount-asc
 text-width 80
 # ---
 
+browser "brave %u"
+
 # Open on mpv when [, + v]
 macro v set browser "~/.scripts/yt-play.sh %u > /dev/null 2>&1 &" ; open-in-browser ; set browser "brave %u"
 # Copy to clipboard when [, + y]
