@@ -1,4 +1,4 @@
-# Dotfiles for my Thinkpad (T480)
+# Dotfiles
 
 **OS**: Arch Linux
 
