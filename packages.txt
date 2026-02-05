@@ -28,6 +28,8 @@ efibootmgr
 exfatprogs
 fastfetch
 fd
+firewall-config
+firewalld
 framework-system-git
 freerdp
 fwupd
@@ -124,7 +126,6 @@ ttf-firacode-nerd
 udiskie
 unrar
 unzip
-vi
 vim
 virt-manager
 vivid
