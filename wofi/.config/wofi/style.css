@@ -1,7 +1,7 @@
-/* Latte Colors */
-@define-color background #ccd0da;
-@define-color accent #7287fd;
-@define-color text #4c4f69;
+/* Frappe Colors */
+@define-color background #313244;
+@define-color accent #7c7f93;
+@define-color text #cdd6f4;
 
 * {
   font-family: "FiraCode Nerd Font", monospace;

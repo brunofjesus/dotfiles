@@ -16,6 +16,8 @@ set_theme() {
             $HOME/.config/lsd/set-theme.sh 'frappe'
             $HOME/.config/bat/set-theme.sh 'frappe'
             $HOME/.config/lazygit/set-theme.sh 'frappe'
+            $HOME/.config/foot/set-theme.sh 'frappe'
+            $HOME/.config/btop/set-theme.sh 'frappe'
             $HOME/.config/nvim/set-theme.sh 'dark'
             ;;
         "light")
@@ -25,11 +27,14 @@ set_theme() {
             $HOME/.config/waybar/set-theme.sh 'latte'
             $HOME/.config/sway/set-theme.sh 'latte'
             $HOME/.config/wofi/set-theme.sh 'latte'
+            $HOME/.config/zathura/set-theme.sh 'latte'
             $HOME/.config/newsboat/set-theme.sh 'latte'
             $HOME/.config/fzf/set-theme.sh 'latte'
             $HOME/.config/lsd/set-theme.sh 'latte'
             $HOME/.config/bat/set-theme.sh 'latte'
             $HOME/.config/lazygit/set-theme.sh 'latte'
+            $HOME/.config/foot/set-theme.sh 'latte'
+            $HOME/.config/btop/set-theme.sh 'latte'
             $HOME/.config/nvim/set-theme.sh 'light'
             ;;
     esac
