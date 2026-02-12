@@ -109,6 +109,7 @@ slurp
 smartmontools
 solaar
 spotify-launcher
+spotify-player
 starship
 steam
 stow
