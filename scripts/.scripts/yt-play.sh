@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Parse command line arguments
+TERMINAL_MODE=false
+if [[ "$1" == "--terminal" ]]; then
+    TERMINAL_MODE=true
+    URL="$2"
+    if [ -z "$URL" ]; then
+        echo "Error: URL required when using --terminal flag"
+        echo "Usage: $0 --terminal <URL>"
+        exit 1
+    fi
+    shift 2
+fi
+
 # Temp files
 SOCKET="/tmp/mpv-yt-socket"
 PIDFILE="/tmp/mpv-yt.pid"
@@ -40,41 +53,50 @@ start_mpv() {
     fi
 }
 
-# Function to play video in existing mpv instance
+# Function to play video in existing mpv instance or directly in terminal
 play_video() {
-    echo "sending loadfile command"
     local url="$1"
-    printf '{ "command": ["loadfile", "%s"] }\n' "$url" | timeout 2 nc -U "$SOCKET"
+    
+    if [[ "$TERMINAL_MODE" == "true" ]]; then
+        echo "Playing video in terminal mode..."
+        mpv --profile=sw-fast --vo=kitty --vo-kitty-use-shm=yes --really-quiet \
+            --ytdl-format="bestvideo[height<=720]+bestaudio/best[height<=720]" \
+            "$url"
+    else
+        echo "sending loadfile command"
+        printf '{ "command": ["loadfile", "%s"] }\n' "$url" | timeout 2 nc -U "$SOCKET"
+    fi
 }
 
-# Ask for URL with clipboard content as default
-if [ -n "$1" ]; then
-    URL="$1"
-else
-  URL=$(zenity --entry \
-    --title="YouTube Player" \
-    --text="Enter video URL:" \
-    --entry-text="$(wl-paste)" \
-    --width=800)
+# Ask for URL with clipboard content as default (GUI mode only)
+if [[ "$TERMINAL_MODE" != "true" ]]; then
+    if [ -n "$1" ]; then
+        URL="$1"
+    else
+      URL=$(zenity --entry \
+        --title="YouTube Player" \
+        --text="Enter video URL:" \
+        --entry-text="$(wl-paste)" \
+        --width=800)
 
-  # Check if user clicked cancel
-  if [ $? -ne 0 ]; then
-      echo "Playback cancelled"
-      exit 1
-  fi
+      # Check if user clicked cancel
+      if [ $? -ne 0 ]; then
+          echo "Playback cancelled"
+          exit 1
+      fi
+    fi
+
+    # Check if URL is empty
+    if [ -z "$URL" ]; then
+        zenity --error \
+            --text="URL cannot be empty" \
+            --width=200
+        exit 1
+    fi
+
+    # Start an mpv instance
+    start_mpv
 fi
-
-# Check if URL is empty
-if [ -z "$URL" ]; then
-    zenity --error \
-        --text="URL cannot be empty" \
-        --width=200
-    exit 1
-fi
-
-
-# Start mpv if not already running
-start_mpv
 
 play_video "$URL"
 
