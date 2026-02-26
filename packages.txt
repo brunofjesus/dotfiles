@@ -138,6 +138,7 @@ wdisplays
 wf-recorder
 wget
 wireless-regdb
+wiremix
 wireplumber
 wl-clipboard
 wl-mirror
