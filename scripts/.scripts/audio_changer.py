@@ -1,96 +1,176 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python3
 import sys
+import json
 import subprocess
 
-# function to parse output of command "wpctl status" and return a dictionary of sinks with their id and name.
-def parse_wpctl_status():
-    # Execute the wpctl status command and store the output in a variable.
-    output = str(subprocess.check_output("wpctl status", shell=True, encoding='utf-8'))
+def get_audio_sinks():
+    """Get all available audio sinks using pw-dump JSON output."""
+    try:
+        # Get PipeWire state as JSON
+        result = subprocess.run(['pw-dump'], capture_output=True, text=True, check=True)
+        data = json.loads(result.stdout)
+        
+        # Find current default sink
+        default_sink_name = None
+        for obj in data:
+            if (obj.get('type') == 'PipeWire:Interface:Metadata' and 
+                obj.get('props', {}).get('metadata.name') == 'default'):
+                metadata = obj.get('metadata', [])
+                for meta in metadata:
+                    if meta.get('key') == 'default.audio.sink':
+                        default_sink_name = meta.get('value', {}).get('name')
+                        break
+                break
+        
+        # Find all audio sinks
+        sinks = []
+        for obj in data:
+            if (obj.get('type') == 'PipeWire:Interface:Node' and
+                obj.get('info', {}).get('props', {}).get('media.class') == 'Audio/Sink'):
+                
+                props = obj['info']['props']
+                sink_id = obj['id']
+                node_name = props.get('node.name', '')
+                
+                # Get a friendly display name
+                display_name = (props.get('node.description') or 
+                               props.get('device.description') or 
+                               props.get('node.nick') or 
+                               node_name)
+                
+                # Check if this is the current default
+                is_default = node_name == default_sink_name
+                if is_default:
+                    display_name += " - Default"
+                
+                # Filter out virtual/internal sinks we can't switch to
+                # Include ALSA devices and proper BlueZ devices
+                if (node_name.startswith('alsa_output.') or 
+                    node_name.startswith('bluez_output.')):
+                    
+                    sinks.append({
+                        'id': sink_id,
+                        'name': display_name,
+                        'node_name': node_name,
+                        'state': obj.get('info', {}).get('state', 'unknown'),
+                        'is_default': is_default
+                    })
+        
+        # Sort sinks: default first, then by name
+        sinks.sort(key=lambda x: (not x['is_default'], x['name']))
+        
+        return sinks
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Error running pw-dump: {e}")
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Error parsing pw-dump output: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        sys.exit(1)
 
-    # remove the ascii tree characters and return a list of lines
-    lines = output.replace("├", "").replace("─", "").replace("│", "").replace("└", "").splitlines()
-
-    # get the index of the Sinks line as a starting point
-    sinks_index = None
-    for index, line in enumerate(lines):
-        if "Sinks:" in line:
-            sinks_index = index
-            break
-
-    # start by getting the lines after "Sinks:" and before the next blank line and store them in a list
-    sinks = []
-    for line in lines[sinks_index +1:]:
-        if not line.strip():
-            break
-        sinks.append(line.strip())
-
-    # remove the "[vol:" from the end of the sink name
-    for index, sink in enumerate(sinks):
-        sinks[index] = sink.split("[vol:")[0].strip()
-    
-    # strip the * from the default sink and instead append "- Default" to the end. Looks neater in the wofi list this way.
-    for index, sink in enumerate(sinks):
-        if sink.startswith("*"):
-            sinks[index] = sink.strip().replace("*", "").strip() + " - Default"
-
-    # make the dictionary in this format {'sink_id': <int>, 'sink_name': <str>}
-    sinks_dict = [{"sink_id": int(sink.split(".")[0]), "sink_name": sink.split(".")[1].strip()} for sink in sinks]
-
-    return sinks_dict
-
-# Detect if running in a console environment or graphical environment
 def is_console_environment():
-   return sys.stdin and sys.stdin.isatty()
+    """Detect if running in a console environment or graphical environment."""
+    return sys.stdin and sys.stdin.isatty()
 
-# Choose between fzf (console) and wofi (graphical)
-sinks = parse_wpctl_status()
-use_console = is_console_environment()
+def set_default_sink(sink_id):
+    """Set the default audio sink using wpctl."""
+    try:
+        subprocess.run(['wpctl', 'set-default', str(sink_id)], check=True)
+        print(f"Successfully switched to audio sink ID {sink_id}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error setting default sink: {e}")
+        sys.exit(1)
 
-if use_console:
-    # Prepare list for fzf - plain text format
-    output = ''
-    for items in sinks:
-        if items['sink_name'].endswith(" - Default"):
-            output += f"-> {items['sink_name']}\n"
-        else:
-            output += f"{items['sink_name']}\n"
+def main():
+    # Get available sinks
+    sinks = get_audio_sinks()
     
-    # Check if fzf is installed
-    if subprocess.run("which fzf", shell=True, stdout=subprocess.PIPE).returncode != 0:
-        print("Error: fzf is not installed. Please install it for console selection.")
-        exit(1)
+    if not sinks:
+        print("No audio sinks found.")
+        sys.exit(1)
     
-    # Call fzf and show the list
-    fzf_command = f"echo '{output}' | fzf --prompt='Select an audio sink: ' --height=10"
-    fzf_process = subprocess.run(fzf_command, shell=True, encoding='utf-8', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    # Detect environment and choose interface
+    use_console = is_console_environment()
     
-    if fzf_process.returncode != 0:
-        print("User cancelled the operation.")
-        exit(0)
+    if use_console:
+        # Console interface using fzf
+        # Check if fzf is installed
+        try:
+            subprocess.run(['which', 'fzf'], check=True, stdout=subprocess.PIPE)
+        except subprocess.CalledProcessError:
+            print("Error: fzf is not installed. Please install it for console selection.")
+            sys.exit(1)
         
-    selected_sink_name = fzf_process.stdout.strip()
-    # Remove the "-> " prefix if present
-    if selected_sink_name.startswith("-> "):
-        selected_sink_name = selected_sink_name[3:]
+        # Prepare list for fzf
+        output = ''
+        for sink in sinks:
+            if sink['is_default']:
+                output += f"-> {sink['name']}\n"
+            else:
+                output += f"{sink['name']}\n"
         
-else:
-    # Prepare list for wofi - with HTML markup
-    output = ''
-    for items in sinks:
-        if items['sink_name'].endswith(" - Default"):
-            output += f"<b>-> {items['sink_name']}</b>\n"
-        else:
-            output += f"{items['sink_name']}\n"
+        # Call fzf
+        fzf_command = f"echo '{output}' | fzf --prompt='Select an audio sink: ' --height=10"
+        try:
+            fzf_process = subprocess.run(fzf_command, shell=True, encoding='utf-8', 
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            selected_sink_name = fzf_process.stdout.strip()
+            
+            # Remove the "-> " prefix if present
+            if selected_sink_name.startswith("-> "):
+                selected_sink_name = selected_sink_name[3:]
+                
+        except subprocess.CalledProcessError:
+            print("User cancelled the operation.")
+            sys.exit(0)
     
-    # Call wofi and show the list
-    wofi_command = f"echo '{output}' | wofi --show=dmenu --allow-markup --prompt='Select an audio sink' --insensitive"
-    wofi_process = subprocess.run(wofi_command, shell=True, encoding='utf-8', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    
-    if wofi_process.returncode != 0:
-        print("User cancelled the operation.")
-        exit(0)
+    else:
+        # Graphical interface using wofi
+        # Prepare list for wofi with HTML markup
+        output = ''
+        for sink in sinks:
+            if sink['is_default']:
+                output += f"<b>-> {sink['name']}</b>\n"
+            else:
+                output += f"{sink['name']}\n"
         
-    selected_sink_name = wofi_process.stdout.strip()
-sinks = parse_wpctl_status()
-selected_sink = next(sink for sink in sinks if sink['sink_name'] == selected_sink_name)
-subprocess.run(f"wpctl set-default {selected_sink['sink_id']}", shell=True)
+        # Call wofi
+        wofi_command = f"echo '{output}' | wofi --show=dmenu --allow-markup --prompt='Select an audio sink' --insensitive"
+        try:
+            wofi_process = subprocess.run(wofi_command, shell=True, encoding='utf-8',
+                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            selected_sink_name = wofi_process.stdout.strip()
+            
+            # Remove HTML markup
+            selected_sink_name = (selected_sink_name.replace('<b>', '')
+                                                   .replace('</b>', '')
+                                                   .replace('-> ', ''))
+        except subprocess.CalledProcessError:
+            print("User cancelled the operation.")
+            sys.exit(0)
+    
+    # Find the selected sink
+    selected_sink = None
+    selected_sink_name_clean = selected_sink_name.replace(" - Default", "")
+    
+    for sink in sinks:
+        sink_name_clean = sink['name'].replace(" - Default", "")
+        if sink_name_clean == selected_sink_name_clean:
+            selected_sink = sink
+            break
+    
+    if selected_sink is None:
+        print(f"Error: Could not find sink '{selected_sink_name}'")
+        print("Available sinks:")
+        for sink in sinks:
+            print(f"  - {sink['name']} (ID: {sink['id']})")
+        sys.exit(1)
+    
+    # Set the default sink
+    set_default_sink(selected_sink['id'])
+
+if __name__ == "__main__":
+    main()
