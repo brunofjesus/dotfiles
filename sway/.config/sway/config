@@ -248,9 +248,17 @@ bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
 bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
 bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
 bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+
+# HHKB Keys
+## Previous = Fn + W (F13)
+bindsym XF86Tools exec playerctl previous
+## Play/Pause = Fn + E (F14)
+bindsym XF86Launch5 exec playerctl play-pause
+## Next = Fn + R (F15)
+bindsym XF86Launch6 exec playerctl next
 
 # Capslock
 bindsym --release Caps_Lock exec swayosd-client --caps-lock
