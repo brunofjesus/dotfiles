@@ -109,6 +109,7 @@ slurp
 smartmontools
 solaar
 spotify-launcher
+spotify-player
 starship
 steam
 stow
@@ -137,6 +138,7 @@ wdisplays
 wf-recorder
 wget
 wireless-regdb
+wiremix
 wireplumber
 wl-clipboard
 wl-mirror

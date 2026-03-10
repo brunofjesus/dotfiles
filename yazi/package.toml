@@ -1,14 +1,14 @@
 [[plugin.deps]]
 use = "stelcodes/bunny"
-rev = "a0b4e18"
-hash = "7acba2bb504c67dd7f2da135b88aae1b"
-
-[[flavor.deps]]
-use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "d04a298"
-hash = "288a0dedd5d13b28605cf82c05326dcd"
+rev = "6ee99bc"
+hash = "417de633d0008580b386bd3358eea56f"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-latte"
 rev = "4296a38"
 hash = "509055ecc7e6315cb574be36da7a4495"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "3001521"
+hash = "e25fb61c14484de843b52430a72b5196"

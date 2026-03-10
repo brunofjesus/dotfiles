@@ -4,7 +4,8 @@ require("bunny"):setup({
     { key = "r", path = "/run/media/bruno/",      desc = "Mounted devices" },
     { key = "~", path = "~",                      desc = "Home" },
     { key = "c", path = "~/dotfiles/",            desc = "Dotfiles" },
-    { key = "d", path = "~/nextcloud/Documents/", desc = "Nextcloud documents" },
+    { key = "d", path = "~/Nextcloud/Documents/", desc = "Nextcloud documents" },
+    { key = "n", path = "~/Nextcloud/Notes/",     desc = "Nextcloud notes" },
     -- key and path attributes are required, desc is optional
   },
   desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
