@@ -194,7 +194,10 @@ layout {
           border_format   "#[bg=$base]{char}"
           border_position "top"
       
-          hide_frame_for_single_pane "true"
+          hide_frame_for_single_pane       "false"
+          hide_frame_except_for_search     "true"
+          hide_frame_except_for_scroll     "true"
+          hide_frame_except_for_fullscreen "true"
       
           swap_layout_hide_if_empty "true"
           swap_layout_format "#[bg=$base,fg=$blue]█#[bg=$blue,fg=$crust,bold]{name}#[bg=$base,fg=$blue]█ "
