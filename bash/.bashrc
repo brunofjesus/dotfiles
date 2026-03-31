@@ -77,6 +77,7 @@ alias reload="source ~/.bashrc && echo 'Reloaded!'"
 alias ls="lsd"
 alias ll="ls -l"
 alias cat="bat"
+alias open="xdg-open"
 
 # If on kitty and not using ZelliJ use ssh kitten
 if [[ "$TERM" == "xterm-kitty" && -z "$ZELLIJ" ]]; then
