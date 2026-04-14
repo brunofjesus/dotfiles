@@ -1,0 +1,13 @@
+# Configurations for X230
+# Make Caps Lock an additional Ctrl
+input * xkb_options "ctrl:nocaps"
+
+
+input "type:touchpad" {
+	dwt disabled
+	tap enabled
+}
+
+# Automatically hide cursor
+seat seat0 hide_cursor 3000
+
