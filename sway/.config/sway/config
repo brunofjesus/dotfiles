@@ -222,7 +222,7 @@ for_window [app_id="floating_kitty"] floating enable
 
 # List all windows here that should have default settings:
 # to get app classes run `swaymsg -t get_tree`
-assign [class="Brave-browser"]            workspace $workspace2
+assign [app_id="brave-browser"]           workspace $workspace2
 assign [class="Tor Browser"]              workspace $workspace2
 assign [app_id="spotify"]                 workspace $workspace4
 assign [app_id="org.mozilla.Thunderbird"] workspace $workspace5
