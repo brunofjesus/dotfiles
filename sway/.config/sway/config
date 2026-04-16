@@ -251,10 +251,12 @@ exec swayosd-server
 bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
 bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
 bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
+# swayosd-client mute is broken, temp workaround (https://github.com/ErikReider/SwayOSD/issues/225)
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && swayosd-client --custom-message "Microphone" --custom-icon "source-volume-muted-symbolic" || swayosd-client --custom-message "Microphone" --custom-icon "source-volume-high-symbolic")
+#bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
 
 # HHKB Keys
 ## Previous = Fn + W (F13)
