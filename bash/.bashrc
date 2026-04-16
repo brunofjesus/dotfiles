@@ -77,7 +77,6 @@ alias reload="source ~/.bashrc && echo 'Reloaded!'"
 alias ls="lsd"
 alias ll="ls -l"
 alias cat="bat"
-alias open="xdg-open"
 
 # If on kitty and not using ZelliJ use ssh kitten
 if [[ "$TERM" == "xterm-kitty" && -z "$ZELLIJ" ]]; then
@@ -98,6 +97,10 @@ cs() {
 
 yayf() {
     yay -Slq | command fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S
+}
+
+open() {
+    nohup xdg-open "$1" > /dev/null 2>&1 &
 }
 
 # Load environment variables from .env file
