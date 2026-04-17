@@ -1,5 +1,6 @@
 7zip
 amd-ucode
+asciinema
 base
 base-devel
 bash-completion
@@ -50,7 +51,7 @@ hunspell-pt_pt
 imagemagick
 inetutils
 iperf3
-iptables-nft
+iptables
 iw
 iwd
 jetbrains-toolbox
@@ -97,9 +98,11 @@ pkgfile
 playerctl
 polkit-gnome
 power-profiles-daemon
+presenterm
 protobuf
 python-pillow
 python-pipx
+python-weasyprint
 qemu-desktop
 qt5-wayland
 remmina
@@ -129,7 +132,6 @@ unrar
 unzip
 vim
 virt-manager
-vivid
 vlc
 vulkan-radeon
 w3m
