@@ -189,7 +189,7 @@ client.placeholder       $overlay0 $base     $text  $overlay0  $overlay0
 client.background        $base
 
 bar {
-    swaybar_command waybar
+    swaybar_command /home/bruno/.config/waybar/waybar.sh
 }
 
 
