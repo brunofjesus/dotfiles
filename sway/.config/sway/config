@@ -224,7 +224,7 @@ for_window [app_id="floating_kitty"] floating enable
 # to get app classes run `swaymsg -t get_tree`
 assign [app_id="brave-browser"]           workspace $workspace2
 assign [class="Tor Browser"]              workspace $workspace2
-assign [app_id="spotify"]                 workspace $workspace4
+assign [class="Spotify"]                 workspace $workspace4
 assign [app_id="org.mozilla.Thunderbird"] workspace $workspace5
 assign [app_id="at.yrlf.wl_mirror"]       workspace $workspace9
 
