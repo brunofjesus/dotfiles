@@ -12,5 +12,7 @@ if pgrep -x waybar > /dev/null; then
 fi
 
 while true; do
-  waybar
+  echo "Starting waybar" >> /tmp/waybar.log
+  waybar >> /tmp/waybar.log
+  echo "Waybar crashed" >> /tmp/waybar.log
 done
