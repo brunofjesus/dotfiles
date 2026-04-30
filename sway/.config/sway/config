@@ -125,6 +125,10 @@ bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 
+# Allow switching between workspaces with left and right swipes
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+
 # Reload the config:
 bindsym $mod+Shift+c reload
 
@@ -185,7 +189,7 @@ client.placeholder       $overlay0 $base     $text  $overlay0  $overlay0
 client.background        $base
 
 bar {
-    swaybar_command waybar
+    swaybar_command /home/bruno/.config/waybar/waybar.sh
 }
 
 
@@ -218,9 +222,9 @@ for_window [app_id="floating_kitty"] floating enable
 
 # List all windows here that should have default settings:
 # to get app classes run `swaymsg -t get_tree`
-assign [class="Brave-browser"]            workspace $workspace2
+assign [app_id="brave-browser"]           workspace $workspace2
 assign [class="Tor Browser"]              workspace $workspace2
-assign [app_id="spotify"]                 workspace $workspace4
+assign [class="Spotify"]                 workspace $workspace4
 assign [app_id="org.mozilla.Thunderbird"] workspace $workspace5
 assign [app_id="at.yrlf.wl_mirror"]       workspace $workspace9
 
@@ -247,10 +251,12 @@ exec swayosd-server
 bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
 bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
 bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
+# swayosd-client mute is broken, temp workaround (https://github.com/ErikReider/SwayOSD/issues/225)
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && swayosd-client --custom-message "Microphone" --custom-icon "source-volume-muted-symbolic" || swayosd-client --custom-message "Microphone" --custom-icon "source-volume-high-symbolic")
+#bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
 
 # HHKB Keys
 ## Previous = Fn + W (F13)

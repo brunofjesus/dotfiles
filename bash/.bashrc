@@ -99,6 +99,10 @@ yayf() {
     yay -Slq | command fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S
 }
 
+open() {
+    nohup xdg-open "$1" > /dev/null 2>&1 &
+}
+
 # Load environment variables from .env file
 function loadenv() {
   local env_file="${1:-.env}"
