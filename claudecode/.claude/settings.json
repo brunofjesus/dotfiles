@@ -4,8 +4,11 @@
     "type": "command",
     "command": "npx ccstatusline@latest"
   },
-  "effortLevel": "medium",
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
-  }
+  },
+  "effortLevel": "medium",
+  "theme": "dark-ansi",
+  "editorMode": "vim",
+  "skipAutoPermissionPrompt": true
 }
