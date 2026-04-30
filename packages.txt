@@ -15,9 +15,9 @@ brave-bin
 brightnessctl
 bruno-bin
 btop
+chromium
 cups
 cups-pdf
-dbeaver
 dmenu
 dnsmasq
 docker
