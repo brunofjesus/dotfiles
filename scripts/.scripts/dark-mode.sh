@@ -19,7 +19,6 @@ set_theme() {
             $HOME/.config/foot/set-theme.sh 'frappe'
             $HOME/.config/btop/set-theme.sh 'frappe'
             $HOME/.config/k9s/set-theme.sh 'frappe'
-            $HOME/.config/nvim/set-theme.sh 'dark'
             ;;
         "light")
             gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
@@ -37,7 +36,6 @@ set_theme() {
             $HOME/.config/foot/set-theme.sh 'latte'
             $HOME/.config/btop/set-theme.sh 'latte'
             $HOME/.config/k9s/set-theme.sh 'latte'
-            $HOME/.config/nvim/set-theme.sh 'light'
             ;;
     esac
 }
