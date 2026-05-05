@@ -11,8 +11,8 @@ if pgrep -x waybar > /dev/null; then
   exit 1
 fi
 
-while true; do
+for i in $(seq 1 10); do
   echo "Starting waybar" >> /tmp/waybar.log
-  waybar >> /tmp/waybar.log
+  waybar -l debug >> /tmp/waybar.log
   echo "Waybar crashed" >> /tmp/waybar.log
 done
