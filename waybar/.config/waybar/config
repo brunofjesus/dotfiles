@@ -4,25 +4,22 @@
     "position": "top",
     "modules-left": [
       "sway/workspaces",
-    "sway/mode",
+      "sway/mode",
     ],
     "modules-center": [
     ],
     "modules-right": [
       "custom/fan",
-    "temperature",
-    "cpu",
-    "memory",
-//    "custom/swap",
-    "network",
-//    "custom/pacman",
-    "pulseaudio",
-//    "backlight",
-    "battery",
-    "tray",
-    "clock",
-    "power-profiles-daemon",
-    "idle_inhibitor",
+      "temperature",
+      "cpu",
+      "memory",
+      "network",
+      "pulseaudio",
+      "battery",
+      "tray",
+      "clock",
+      "power-profiles-daemon",
+      "idle_inhibitor",
     ],
     "sway/workspaces": {
       "disable-scroll": true,
@@ -78,8 +75,8 @@
         "car": "",
         "default": [
           "",
-        "",
-        ""
+          "",
+          ""
         ]
       },
       "on-click": "kitty --class \"floating_kitty\" wiremix"
@@ -92,11 +89,6 @@
       "interval": 1,
       "format": " {usage:2}%"
     },
-    "custom/load": {
-      "interval": 5,
-      "format": "  {}",
-      "exec": "cat /proc/loadavg | cut -d' ' -f2"
-    },
     "battery": {
       "states": {
         "good": 90,
@@ -106,39 +98,20 @@
       "format": "{icon}  {capacity}%",
       "format-icons": [
         "",
-      "",
-      "",
-      "",
-      ""
+        "",
+        "",
+        "",
+        ""
       ]
-    },
-    "disk": {
-      "interval": 5,
-      "format": " {percentage_used:2}%",
-      "path": "/"
     },
     "tray": {
       "icon-size": 16,
       "spacing": 6 
     },
-    "custom/pacman": {
-      "format": " {}",
-      "interval": 900, // every 15 minutes
-      "exec": "checkupdates | wc -l", // # of updates
-      "exec-if": "exit 0", // always run; consider advanced run conditions
-      "signal": 8,
-      "tooltip": false
-    },
-    "custom/swap": {
-      "format": " {}",
-      "interval": 5,
-      "exec": "free -h | grep Swap | awk '{print $3}'"
-    },
     "custom/fan": {
       "format": "󰈐 {}rpm",
       "interval": 2,
       "exec": "sensors | awk '/fan1:/ {print $2}'",
-      "interval": 5,
     },
     "custom/player": {
       "format": "{}",
@@ -146,7 +119,6 @@
       "exec": "$HOME/.config/waybar/modules/executable_playerctl.sh"
     },
     "network": {
-      "format-ethernet": "",
       "format-wifi": "{essid} ({signalStrength}%)  ",
       "format-ethernet": "{ifname}  ",
       "format-disconnected": "",
