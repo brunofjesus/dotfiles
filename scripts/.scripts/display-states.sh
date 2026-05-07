@@ -30,15 +30,36 @@ apply_state() {
     [ -z "$state_name" ] && exit 0
     state_file=$(get_state_file "$state_name")
 
+    # Get currently connected outputs for matching by make/model/serial
+    current_outputs=$(swaymsg -t get_outputs)
+
     # Disconnect all currently enabled displays first
     echo "Disconnecting all current displays..."
-    swaymsg -t get_outputs | jq -r '.[] | select(.active) | "output \(.name) disable"' | while read cmd; do
+    echo "$current_outputs" | jq -r '
+        .[]
+        | select(.active)
+        | "output \(.name) disable"
+    ' | while read cmd; do
         echo "Disabling: $cmd"
         swaymsg "$cmd"
     done
- 
-    # Apply the new display configuration
-    jq -r '.[] | if .current_mode == null then "output \(.name) disable" else "output \(.name) mode \(.current_mode.width)x\(.current_mode.height) position \(.rect.x) \(.rect.y) scale \(.scale // 1.0) enable" end' "$state_file" | while read cmd; do
+
+    # Apply the new display configuration, resolving port names by make/model/serial
+    jq -r --argjson current "$current_outputs" '
+        .[] | . as $saved |
+        # Find the current port name matching this monitor by make/model/serial
+        ($current[] | select(
+            .make == $saved.make and
+            .model == $saved.model and
+            .serial == $saved.serial
+        ) | .name) // $saved.name
+        | . as $resolved_name |
+        if $saved.current_mode == null then
+            "output \($resolved_name) disable"
+        else
+            "output \($resolved_name) mode \($saved.current_mode.width)x\($saved.current_mode.height) position \($saved.rect.x) \($saved.rect.y) scale \($saved.scale // 1.0) enable"
+        end
+    ' "$state_file" | while read cmd; do
         echo "Applying: $cmd"
         swaymsg "$cmd"
     done
