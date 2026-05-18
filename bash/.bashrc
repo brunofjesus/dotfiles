@@ -103,6 +103,10 @@ open() {
     nohup xdg-open "$1" > /dev/null 2>&1 &
 }
 
+run() {
+  nohup "$1" > /dev/null 2>&1 &
+}
+
 # Load environment variables from .env file
 function loadenv() {
   local env_file="${1:-.env}"
