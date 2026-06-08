@@ -113,6 +113,7 @@ smartmontools
 solaar
 spotify-launcher
 spotify-player
+sshfs
 starship
 steam
 stow
