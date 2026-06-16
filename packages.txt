@@ -31,7 +31,6 @@ fastfetch
 fd
 firewall-config
 firewalld
-framework-system-git
 freerdp
 fwupd
 fzf
@@ -85,7 +84,6 @@ nvm
 nwg-look
 openbsd-netcat
 opencode-bin
-openssl-1.1
 pacman-contrib
 pavucontrol
 pcmanfm
@@ -107,6 +105,7 @@ qemu-desktop
 qt5-wayland
 remmina
 rpi-imager
+rsync
 seahorse
 slurp
 smartmontools
