@@ -107,6 +107,7 @@ remmina
 rpi-imager
 rsync
 seahorse
+sesh-bin
 slurp
 smartmontools
 solaar
@@ -124,6 +125,7 @@ swaylock
 swayosd-git
 tealdeer
 thunderbird
+tmux
 torbrowser-launcher
 traceroute
 ttf-firacode-nerd
