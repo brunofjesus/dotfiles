@@ -19,6 +19,7 @@ nc.addObserver(forName: Notification.Name("AppleInterfaceThemeChangedNotificatio
     print("Appearance changed to \(mode)")
     runShell("/Users/bruno/.config/nvim/set-theme.sh", args: [mode])
     runShell("/Users/bruno/Library/Application Support/k9s/set-theme.sh", args: [theme])
+    runShell("/Users/bruno/.config/tmux/set-theme.sh", args: [theme])
 }
 
 // Also run once immediately on startup (optional)
@@ -26,5 +27,6 @@ let initialMode = (UserDefaults.standard.string(forKey: "AppleInterfaceStyle") =
 let initialTheme = initialMode == "dark" ? "frappe" : "latte"
 runShell("/Users/bruno/.config/nvim/set-theme.sh", args: [initialMode])
 runShell("/Users/bruno/Library/Application Support/k9s/set-theme.sh", args: [initialTheme])
+runShell("/Users/bruno/.config/tmux/set-theme.sh", args: [initialTheme])
 
 RunLoop.main.run()
