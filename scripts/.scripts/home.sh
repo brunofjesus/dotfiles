@@ -12,6 +12,8 @@ else
     source ~/.env
 fi
 
+QUIT="🚪 Quit"
+
 die() {
     if tty -s; then
         echo "$1" >&2
@@ -54,6 +56,8 @@ call_service() {
     else
         notify-send "Home Assistant" "Failed (HTTP ${code:-?}): ${body:-no response}"
     fi
+    # Give HA a moment to reflect the change before the caller re-fetches state.
+    sleep 0.4
 }
 
 menu() {
@@ -71,62 +75,91 @@ api_template() {
         "$HA_URL/api/template"
 }
 
+# Fetches /api/states into the named variable. Returns non-zero (and notifies)
+# when Home Assistant is unreachable or the response is not a JSON array.
+# $1 = name of the variable to populate.
+fetch_states() {
+    local __out
+    __out=$(api_get "/api/states")
+    if [ -z "$__out" ] || ! echo "$__out" | jq -e 'type == "array"' >/dev/null 2>&1; then
+        notify-send "Home Assistant" "Could not reach Home Assistant at $HA_URL."
+        return 1
+    fi
+    printf -v "$1" '%s' "$__out"
+}
+
 # Format a numeric temperature: drop a trailing ".0" (23.0 -> 23)
 fmt_temp() {
     printf '%s' "$1" | sed 's/\.0$//'
 }
 
+# ── HVAC ────────────────────────────────────────────────────────────────────
+
 hvac_menu() {
-    local states
-    states=$(api_get "/api/states")
-    [ -z "$states" ] && die "Could not reach Home Assistant at $HA_URL."
-    echo "$states" | jq -e 'type == "array"' >/dev/null 2>&1 \
-        || die "Unexpected response from Home Assistant (check HA_TOKEN)."
+    while true; do
+        local states
+        fetch_states states || return
 
-    # Build "entity_id<TAB>label" list for every climate.* entity.
-    local list
-    list=$(echo "$states" | jq -r '
-        [ .[] | select(.entity_id | startswith("climate.")) ]
-        | .[]
-        | .entity_id as $id
-        | (.attributes.friendly_name // $id) as $name
-        | .state as $mode
-        | (if .attributes.current_temperature == null then "?"
-           else (.attributes.current_temperature | tostring) end) as $cur
-        | (if .attributes.temperature == null then "?"
-           else (.attributes.temperature | tostring) end) as $target
-        | "\($id)\t❄️ \($name) — \($mode) · \($cur)° → \($target)°"
-    ')
+        # Build "entity_id<TAB>label" for every climate.* entity.
+        local list
+        list=$(echo "$states" | jq -r '
+            [ .[] | select(.entity_id | startswith("climate.")) ]
+            | .[]
+            | .entity_id as $id
+            | (.attributes.friendly_name // $id) as $name
+            | .state as $mode
+            | (if .attributes.current_temperature == null then "?"
+               else (.attributes.current_temperature | tostring) end) as $cur
+            | (if .attributes.temperature == null then "?"
+               else (.attributes.temperature | tostring) end) as $target
+            | "\($id)\t❄️ \($name) — \($mode) · \($cur)° → \($target)°"
+        ')
 
-    [ -z "$list" ] && die "No HVAC (climate) units found."
+        if [ -z "$list" ]; then
+            notify-send "Home Assistant" "No HVAC (climate) units found."
+            return
+        fi
 
-    # Show only the label column in the menu.
-    local choice
-    choice=$(echo "$list" | cut -f2- | menu "HVAC unit:")
-    [ -z "$choice" ] && exit 0
+        local choice
+        choice=$( { echo "$list" | cut -f2-; echo "$QUIT"; } | menu "HVAC unit:")
+        case "$choice" in
+            "")     return ;;   # Esc -> up to type menu
+            "$QUIT") exit 0 ;;
+        esac
 
-    # Resolve the label back to its entity_id.
-    local entity_id
-    entity_id=$(echo "$list" | awk -F'\t' -v c="$choice" '$2 == c {print $1; exit}')
-    [ -z "$entity_id" ] && exit 0
+        local entity_id
+        entity_id=$(echo "$list" | awk -F'\t' -v c="$choice" '$2 == c {print $1; exit}')
+        [ -z "$entity_id" ] && continue
 
-    # Grab this unit's current info.
-    local entity mode cur target name
-    entity=$(echo "$states" | jq -r --arg id "$entity_id" '.[] | select(.entity_id == $id)')
-    name=$(echo "$entity" | jq -r '.attributes.friendly_name // .entity_id')
-    mode=$(echo "$entity" | jq -r '.state')
-    cur=$(echo "$entity" | jq -r '.attributes.current_temperature // "?"')
-    target=$(echo "$entity" | jq -r '.attributes.temperature // "?"')
+        hvac_unit_menu "$entity_id"
+    done
+}
 
-    local action
-    action=$(printf '🌡️ Set Temperature\n⚙️ Set Mode' \
-        | menu "$name ($mode · $(fmt_temp "$cur")° → $(fmt_temp "$target")°):")
+hvac_unit_menu() {
+    local entity_id="$1"
+    while true; do
+        local states entity
+        fetch_states states || return
+        entity=$(echo "$states" | jq -c --arg id "$entity_id" '.[] | select(.entity_id == $id)')
+        [ -z "$entity" ] && return   # entity vanished -> up to unit list
 
-    case "$action" in
-        *Temperature) set_temperature "$entity_id" "$name" ;;
-        *Mode)        set_mode "$entity_id" "$name" "$entity" ;;
-        *)            exit 0 ;;
-    esac
+        local name mode cur target
+        name=$(echo "$entity" | jq -r '.attributes.friendly_name // .entity_id')
+        mode=$(echo "$entity" | jq -r '.state')
+        cur=$(echo "$entity" | jq -r '.attributes.current_temperature // "?"')
+        target=$(echo "$entity" | jq -r '.attributes.temperature // "?"')
+
+        local action
+        action=$(printf '🌡️ Set Temperature\n⚙️ Set Mode\n%s' "$QUIT" \
+            | menu "$name ($mode · $(fmt_temp "$cur")° → $(fmt_temp "$target")°):")
+
+        case "$action" in
+            *Temperature) set_temperature "$entity_id" "$name" ;;
+            *Mode)        set_mode "$entity_id" "$name" "$entity" ;;
+            "$QUIT")      exit 0 ;;
+            *)            return ;;   # Esc -> up to unit list
+        esac
+    done
 }
 
 set_temperature() {
@@ -139,8 +172,11 @@ set_temperature() {
     temps=$(printf '22\n'; LC_ALL=C seq 18.0 0.5 32.0 | sed 's/\.0$//')
 
     local choice
-    choice=$(echo "$temps" | menu "Temperature for $name:")
-    [ -z "$choice" ] && exit 0
+    choice=$( { echo "$temps"; echo "$QUIT"; } | menu "Temperature for $name:")
+    case "$choice" in
+        "")      return ;;   # Esc -> up to unit action menu
+        "$QUIT") exit 0 ;;
+    esac
 
     call_service "climate/set_temperature" \
         "$(jq -nc --arg id "$entity_id" --argjson t "$choice" \
@@ -153,11 +189,17 @@ set_mode() {
 
     local modes
     modes=$(echo "$entity" | jq -r '.attributes.hvac_modes[]? // empty')
-    [ -z "$modes" ] && die "No selectable modes for $name."
+    if [ -z "$modes" ]; then
+        notify-send "Home Assistant" "No selectable modes for $name."
+        return
+    fi
 
     local choice
-    choice=$(echo "$modes" | menu "Mode for $name:")
-    [ -z "$choice" ] && exit 0
+    choice=$( { echo "$modes"; echo "$QUIT"; } | menu "Mode for $name:")
+    case "$choice" in
+        "")      return ;;   # Esc -> up to unit action menu
+        "$QUIT") exit 0 ;;
+    esac
 
     call_service "climate/set_hvac_mode" \
         "$(jq -nc --arg id "$entity_id" --arg m "$choice" \
@@ -165,81 +207,87 @@ set_mode() {
         "$name mode set to $choice"
 }
 
+# ── Lights ──────────────────────────────────────────────────────────────────
+
 lights_menu() {
-    local states
-    states=$(api_get "/api/states")
-    [ -z "$states" ] && die "Could not reach Home Assistant at $HA_URL."
-    echo "$states" | jq -e 'type == "array"' >/dev/null 2>&1 \
-        || die "Unexpected response from Home Assistant (check HA_TOKEN)."
+    while true; do
+        local states
+        fetch_states states || return
 
-    # Fetch each light's area via the template API as {"light.x":"Area",...}.
-    # Falls back to an empty map (no prefix) if the call fails.
-    local areas
-    areas=$(api_template '[{% for s in states.light %}{"id": {{ s.entity_id | tojson }}, "area": {{ area_name(s.entity_id) | tojson }}}{{ "," if not loop.last }}{% endfor %}]')
-    if ! echo "$areas" | jq -e 'type == "array"' >/dev/null 2>&1; then
-        areas="[]"
-    fi
-    areas=$(echo "$areas" | jq 'map({(.id): .area}) | add // {}')
+        # Fetch each light's area via the template API as {"light.x":"Area",...}.
+        # Falls back to an empty map (no prefix) if the call fails.
+        local areas
+        areas=$(api_template '[{% for s in states.light %}{"id": {{ s.entity_id | tojson }}, "area": {{ area_name(s.entity_id) | tojson }}}{{ "," if not loop.last }}{% endfor %}]')
+        if ! echo "$areas" | jq -e 'type == "array"' >/dev/null 2>&1; then
+            areas="[]"
+        fi
+        areas=$(echo "$areas" | jq 'map({(.id): .area}) | add // {}')
 
-    # Build "entity_id<TAB>type<TAB>pct<TAB>label" for every light.* entity.
-    # type=dim when it has a color mode other than "onoff"; else toggle.
-    local list
-    list=$(echo "$states" | jq -r --argjson areas "$areas" '
-        [ .[] | select(.entity_id | startswith("light.")) ]
-        | .[]
-        | .entity_id as $id
-        | (.attributes.friendly_name // $id) as $fname
-        | ($areas[$id]) as $area
-        | (if $area != null and $area != "" then "\($area) · \($fname)" else $fname end) as $name
-        | .state as $st
-        | (if (((.attributes.supported_color_modes // []) - ["onoff"]) | length) > 0
-           then "dim" else "toggle" end) as $type
-        | (if .attributes.brightness == null then "?"
-           else ((.attributes.brightness / 255 * 100) | round | tostring) end) as $pct
-        | (if $type == "dim" and $st == "on"
-           then "💡 \($name) — \($st) · \($pct)%"
-           else "💡 \($name) — \($st)" end) as $label
-        | "\($id)\t\($type)\t\($pct)\t\($label)"
-    ' | sort)
+        # Build "entity_id<TAB>type<TAB>pct<TAB>label" for every light.* entity.
+        # type=dim when it has a color mode other than "onoff"; else toggle.
+        local list
+        list=$(echo "$states" | jq -r --argjson areas "$areas" '
+            [ .[] | select(.entity_id | startswith("light.")) ]
+            | .[]
+            | .entity_id as $id
+            | (.attributes.friendly_name // $id) as $fname
+            | ($areas[$id]) as $area
+            | (if $area != null and $area != "" then "\($area) · \($fname)" else $fname end) as $name
+            | .state as $st
+            | (if (((.attributes.supported_color_modes // []) - ["onoff"]) | length) > 0
+               then "dim" else "toggle" end) as $type
+            | (if .attributes.brightness == null then "?"
+               else ((.attributes.brightness / 255 * 100) | round | tostring) end) as $pct
+            | (if $type == "dim" and $st == "on"
+               then "💡 \($name) — \($st) · \($pct)%"
+               else "💡 \($name) — \($st)" end) as $label
+            | "\($id)\t\($type)\t\($pct)\t\($label)"
+        ' | sort)
 
-    [ -z "$list" ] && die "No lights found."
+        if [ -z "$list" ]; then
+            notify-send "Home Assistant" "No lights found."
+            return
+        fi
 
-    # Show only the label column in the menu.
-    local choice
-    choice=$(echo "$list" | cut -f4- | menu "Light:")
-    [ -z "$choice" ] && exit 0
+        local choice
+        choice=$( { echo "$list" | cut -f4-; echo "$QUIT"; } | menu "Light:")
+        case "$choice" in
+            "")      return ;;   # Esc -> up to type menu
+            "$QUIT") exit 0 ;;
+        esac
 
-    # Resolve the label back to its row.
-    local row entity_id type pct name
-    row=$(echo "$list" | awk -F'\t' -v c="$choice" '$4 == c {print; exit}')
-    [ -z "$row" ] && exit 0
-    entity_id=$(printf '%s' "$row" | cut -f1)
-    type=$(printf '%s' "$row" | cut -f2)
-    pct=$(printf '%s' "$row" | cut -f3)
-    name=$(echo "$states" | jq -r --arg id "$entity_id" --argjson areas "$areas" '
-        .[] | select(.entity_id == $id)
-        | (.attributes.friendly_name // .entity_id) as $fname
-        | ($areas[$id]) as $area
-        | if $area != null and $area != "" then "\($area) · \($fname)" else $fname end')
+        local row entity_id type pct name
+        row=$(echo "$list" | awk -F'\t' -v c="$choice" '$4 == c {print; exit}')
+        [ -z "$row" ] && continue
+        entity_id=$(printf '%s' "$row" | cut -f1)
+        type=$(printf '%s' "$row" | cut -f2)
+        pct=$(printf '%s' "$row" | cut -f3)
+        name=$(echo "$states" | jq -r --arg id "$entity_id" --argjson areas "$areas" '
+            .[] | select(.entity_id == $id)
+            | (.attributes.friendly_name // .entity_id) as $fname
+            | ($areas[$id]) as $area
+            | if $area != null and $area != "" then "\($area) · \($fname)" else $fname end')
 
-    if [ "$type" = "dim" ]; then
-        set_brightness "$entity_id" "$name" "$pct"
-    else
-        toggle_light "$entity_id" "$name"
-    fi
+        if [ "$type" = "dim" ]; then
+            set_brightness "$entity_id" "$name" "$pct"
+        else
+            toggle_light "$entity_id" "$name"
+        fi
+    done
 }
 
 toggle_light() {
     local entity_id="$1" name="$2"
 
     local action
-    action=$(printf '🔆 Turn On\n🌙 Turn Off\n🔁 Toggle' | menu "$name:")
+    action=$(printf '🔆 Turn On\n🌙 Turn Off\n🔁 Toggle\n%s' "$QUIT" | menu "$name:")
 
     case "$action" in
-        *On)     call_service "light/turn_on"  "$(jq -nc --arg id "$entity_id" '{entity_id: $id}')" "$name turned on" ;;
-        *Off)    call_service "light/turn_off" "$(jq -nc --arg id "$entity_id" '{entity_id: $id}')" "$name turned off" ;;
-        *Toggle) call_service "light/toggle"   "$(jq -nc --arg id "$entity_id" '{entity_id: $id}')" "$name toggled" ;;
-        *)       exit 0 ;;
+        *"Turn On")  call_service "light/turn_on"  "$(jq -nc --arg id "$entity_id" '{entity_id: $id}')" "$name turned on" ;;
+        *"Turn Off") call_service "light/turn_off" "$(jq -nc --arg id "$entity_id" '{entity_id: $id}')" "$name turned off" ;;
+        *Toggle)     call_service "light/toggle"   "$(jq -nc --arg id "$entity_id" '{entity_id: $id}')" "$name toggled" ;;
+        "$QUIT")     exit 0 ;;
+        *)           return ;;   # Esc -> up to light list
     esac
 }
 
@@ -254,13 +302,16 @@ set_brightness() {
     levels=$(printf '%s%%\n0%% (off)\n20%%\n40%%\n60%%\n80%%\n100%%' "$current")
 
     local choice
-    choice=$(echo "$levels" | menu "Brightness for $name:")
-    [ -z "$choice" ] && exit 0
+    choice=$( { echo "$levels"; echo "$QUIT"; } | menu "Brightness for $name:")
+    case "$choice" in
+        "")      return ;;   # Esc -> up to light list
+        "$QUIT") exit 0 ;;
+    esac
 
     # Extract the leading number from the selection.
     local pct
     pct=$(printf '%s' "$choice" | grep -oE '^[0-9]+')
-    [ -z "$pct" ] && exit 0
+    [ -z "$pct" ] && return
 
     if [ "$pct" -eq 0 ]; then
         call_service "light/turn_off" \
@@ -274,16 +325,19 @@ set_brightness() {
     fi
 }
 
+# ── Entry point ─────────────────────────────────────────────────────────────
+
 # Device-type menu (extend the case for more types).
 main() {
-    local type
-    type=$(printf '🌡️ HVAC\n💡 Lights' | menu "Control:" | awk '{print tolower($2)}')
-
-    case "$type" in
-        hvac)   hvac_menu ;;
-        lights) lights_menu ;;
-        *)      exit 0 ;;
-    esac
+    while true; do
+        local choice
+        choice=$(printf '🌡️ HVAC\n💡 Lights\n%s' "$QUIT" | menu "Control:")
+        case "$choice" in
+            *HVAC)   hvac_menu ;;
+            *Lights) lights_menu ;;
+            *)       exit 0 ;;   # Quit or Esc at the top level exits
+        esac
+    done
 }
 
 main
