@@ -5,20 +5,35 @@
 #   HA_URL="https://homeassistant.brunojesus.pt"
 #   HA_TOKEN=<long-lived access token>
 
+# Load tokens first, regardless of how we're launched (terminal or keybind).
+[ -f ~/.env ] && source ~/.env
+
 RUNNER="wofi -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
-else
-    source ~/.env
 fi
 
 QUIT="🚪 Quit"
+
+# Desktop notification, cross-platform. $1 = title, $2 = message.
+# Uses notify-send on Linux, osascript on macOS; falls back to stderr.
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "$1" "$2"
+    elif command -v osascript >/dev/null 2>&1; then
+        osascript -e 'on run argv' \
+            -e 'display notification (item 2 of argv) with title (item 1 of argv)' \
+            -e 'end run' "$1" "$2" >/dev/null 2>&1
+    else
+        echo "$1: $2" >&2
+    fi
+}
 
 die() {
     if tty -s; then
         echo "$1" >&2
     else
-        notify-send "Home Assistant" "$1"
+        notify "Home Assistant" "$1"
     fi
     exit 1
 }
@@ -52,9 +67,9 @@ call_service() {
     body=$(printf '%s' "$out" | sed '$d')
 
     if [[ "$code" =~ ^2 ]]; then
-        notify-send "Home Assistant" "$3"
+        notify "Home Assistant" "$3"
     else
-        notify-send "Home Assistant" "Failed (HTTP ${code:-?}): ${body:-no response}"
+        notify "Home Assistant" "Failed (HTTP ${code:-?}): ${body:-no response}"
     fi
     # Give HA a moment to reflect the change before the caller re-fetches state.
     sleep 0.4
@@ -82,7 +97,7 @@ fetch_states() {
     local __out
     __out=$(api_get "/api/states")
     if [ -z "$__out" ] || ! echo "$__out" | jq -e 'type == "array"' >/dev/null 2>&1; then
-        notify-send "Home Assistant" "Could not reach Home Assistant at $HA_URL."
+        notify "Home Assistant" "Could not reach Home Assistant at $HA_URL."
         return 1
     fi
     printf -v "$1" '%s' "$__out"
@@ -116,7 +131,7 @@ hvac_menu() {
         ')
 
         if [ -z "$list" ]; then
-            notify-send "Home Assistant" "No HVAC (climate) units found."
+            notify "Home Assistant" "No HVAC (climate) units found."
             return
         fi
 
@@ -190,7 +205,7 @@ set_mode() {
     local modes
     modes=$(echo "$entity" | jq -r '.attributes.hvac_modes[]? // empty')
     if [ -z "$modes" ]; then
-        notify-send "Home Assistant" "No selectable modes for $name."
+        notify "Home Assistant" "No selectable modes for $name."
         return
     fi
 
@@ -245,7 +260,7 @@ lights_menu() {
         ' | sort)
 
         if [ -z "$list" ]; then
-            notify-send "Home Assistant" "No lights found."
+            notify "Home Assistant" "No lights found."
             return
         fi
 
