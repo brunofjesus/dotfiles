@@ -101,6 +101,11 @@ yayf() {
 
 open() {
     nohup xdg-open "$1" > /dev/null 2>&1 &
+    disown
+}
+
+run() {
+  nohup "$1" > /dev/null 2>&1 &
 }
 
 # Load environment variables from .env file

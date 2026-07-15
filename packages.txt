@@ -31,7 +31,6 @@ fastfetch
 fd
 firewall-config
 firewalld
-framework-system-git
 freerdp
 fwupd
 fzf
@@ -85,7 +84,6 @@ nvm
 nwg-look
 openbsd-netcat
 opencode-bin
-openssl-1.1
 pacman-contrib
 pavucontrol
 pcmanfm
@@ -107,12 +105,15 @@ qemu-desktop
 qt5-wayland
 remmina
 rpi-imager
+rsync
 seahorse
+sesh-bin
 slurp
 smartmontools
 solaar
 spotify-launcher
 spotify-player
+sshfs
 starship
 steam
 stow
@@ -124,6 +125,7 @@ swaylock
 swayosd-git
 tealdeer
 thunderbird
+tmux
 torbrowser-launcher
 traceroute
 ttf-firacode-nerd

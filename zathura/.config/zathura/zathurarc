@@ -3,3 +3,4 @@ include catppuccin-frappe
 map <C-i> recolor
 
 set font 'FiraCodeNFM-Reg 14'
+set selection-clipboard clipboard
