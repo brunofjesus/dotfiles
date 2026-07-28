@@ -1,6 +1,5 @@
 7zip
 amd-ucode
-asciinema
 base
 base-devel
 bash-completion
@@ -18,7 +17,6 @@ btop
 chromium
 cups
 cups-pdf
-dmenu
 dnsmasq
 docker
 docker-buildx
@@ -45,7 +43,6 @@ gst-plugin-pipewire
 gvfs
 gvfs-smb
 htop
-hugo
 hunspell-pt_pt
 imagemagick
 inetutils
@@ -82,6 +79,8 @@ noto-fonts-emoji
 nss-mdns
 nvm
 nwg-look
+ollama
+ollama-vulkan
 openbsd-netcat
 opencode-bin
 pacman-contrib
@@ -161,7 +160,6 @@ yazi
 yt-dlp
 zathura
 zathura-pdf-mupdf
-zellij
 zip
 zoxide
 zram-generator
