@@ -1,4 +1,5 @@
 7zip
+asciinema
 base
 base-devel
 bash-completion
@@ -21,7 +22,6 @@ docker-buildx
 docker-compose
 dosfstools
 dua-cli
-eclipse-java-bin
 efibootmgr
 exfatprogs
 fastfetch
@@ -65,9 +65,7 @@ linux
 lsd
 mako
 man-db
-mermaid-cli
 mpv
-nano
 neovim
 network-manager-applet
 networkmanager
@@ -94,10 +92,12 @@ presenterm
 protobuf
 python-pillow
 python-pipx
+python-weasyprint
 qt5-wayland
 remmina
 rpi-imager
 seahorse
+sesh-bin
 slurp
 smartmontools
 spotify-launcher
@@ -111,7 +111,6 @@ swaybg
 swayidle
 swaylock
 swayosd-git
-system-config-printer
 tealdeer
 thunderbird
 torbrowser-launcher
@@ -120,6 +119,7 @@ ttf-firacode-nerd
 udiskie
 unrar
 unzip
+usbutils
 vim
 vlc
 vulkan-intel
@@ -149,7 +149,6 @@ yazi
 yt-dlp
 zathura
 zathura-pdf-mupdf
-zellij
 zip
 zoxide
 zram-generator
