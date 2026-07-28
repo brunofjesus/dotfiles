@@ -77,6 +77,7 @@ alias reload="source ~/.bashrc && echo 'Reloaded!'"
 alias ls="lsd"
 alias ll="ls -l"
 alias cat="bat"
+alias zathd='run zathura -d "$PWD"'
 
 # If on kitty and not using ZelliJ use ssh kitten
 if [[ "$TERM" == "xterm-kitty" && -z "$ZELLIJ" ]]; then
@@ -105,7 +106,8 @@ open() {
 }
 
 run() {
-  nohup "$1" > /dev/null 2>&1 &
+  nohup "$@" > /dev/null 2>&1 &
+  disown
 }
 
 # Load environment variables from .env file
