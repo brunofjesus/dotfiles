@@ -56,7 +56,8 @@ configure_color_scheme() {
   fi
 }
 export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/fzfrc"
-export PATH="$PATH:$HOME/go/bin:$HOME/.local/bin:$HOME/.scripts"
+export PATH="$PATH:$HOME/go/bin:$HOME/.local/bin:$HOME/.scripts:$HOME/.local/share/nvim/mason/bin
+"
 
 # Initialize color scheme
 configure_color_scheme
