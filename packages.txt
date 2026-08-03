@@ -82,7 +82,7 @@ nwg-look
 ollama
 ollama-vulkan
 openbsd-netcat
-opencode-bin
+opencode
 pacman-contrib
 pavucontrol
 pcmanfm
@@ -98,7 +98,7 @@ power-profiles-daemon
 presenterm
 protobuf
 python-pillow
-python-pipx
+python-pip
 python-weasyprint
 qemu-desktop
 qt5-wayland
