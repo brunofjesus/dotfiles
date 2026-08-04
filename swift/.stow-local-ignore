@@ -1,0 +1,3 @@
+# Run in place from the repo; only the Library/ tree is stowed into $HOME.
+dark-mode-actions.swift
+README.md
