@@ -1,3 +1,2 @@
-# Run in place from the repo; only the Library/ tree is stowed into $HOME.
-dark-mode-actions.swift
+# Only the home-mirroring trees (.local/, Library/) are stowed into $HOME.
 README.md

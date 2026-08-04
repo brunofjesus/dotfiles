@@ -6,9 +6,13 @@
   <key>Label</key>
   <string>com.user.darkmodeactions</string>
 
+  <!-- launchd does not expand ~ or env vars in ProgramArguments, so use a
+       shell wrapper to resolve $HOME at runtime (keeps this user-agnostic). -->
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/bruno/dotfiles/swift/dark-mode-actions.swift</string>
+    <string>/bin/sh</string>
+    <string>-c</string>
+    <string>exec "$HOME/.local/bin/dark-mode-actions.swift"</string>
   </array>
 
   <key>EnvironmentVariables</key>

@@ -6,13 +6,15 @@ A LaunchAgent runs `dark-mode-actions.swift`, which listens for macOS
 appearance changes and re-themes nvim, k9s, and tmux (light = latte,
 dark = frappe). It also runs once at load.
 
-The script runs **in place** from this repo; the plist's `ProgramArguments`
-points at its absolute path here.
+The setup is user-agnostic: the script resolves paths from `$HOME`
+(`NSHomeDirectory()`), and the plist invokes it through a `/bin/sh -c`
+wrapper so `$HOME` expands at runtime (launchd won't expand `~` in
+`ProgramArguments`).
 
 ### Install
 
-From the repo root, stow the package to symlink the LaunchAgent into
-`~/Library/LaunchAgents/`:
+From the repo root, stow the package. This symlinks the script into
+`~/.local/bin/` and the LaunchAgent into `~/Library/LaunchAgents/`:
 
 ```sh
 stow swift
