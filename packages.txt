@@ -79,8 +79,6 @@ noto-fonts-emoji
 nss-mdns
 nvm
 nwg-look
-ollama
-ollama-vulkan
 openbsd-netcat
 opencode
 pacman-contrib
