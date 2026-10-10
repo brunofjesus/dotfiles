@@ -31,12 +31,12 @@ firewalld
 freerdp
 fwupd
 fzf
+ghostscript
 gimp
 git
 gnome-keyring
 gnome-themes-extra
 gnucash
-go
 grim
 gst-plugin-pipewire
 gvfs
@@ -45,6 +45,7 @@ htop
 hunspell-pt_pt
 imagemagick
 inetutils
+intel-media-driver
 intel-ucode
 iperf3
 iw
@@ -59,12 +60,16 @@ libreoffice-fresh-pt
 libva-intel-driver
 libvirt
 libvncserver
+libvpl
 lightdm
 lightdm-gtk-greeter
 linux
+linux-firmware
 lsd
+lvm2
 mako
 man-db
+mkinitcpio
 mpv
 neovim
 network-manager-applet
@@ -97,6 +102,7 @@ qt5-wayland
 remmina
 rpi-imager
 seahorse
+seatd
 sesh-bin
 slurp
 smartmontools
@@ -115,6 +121,7 @@ tealdeer
 thunderbird
 torbrowser-launcher
 traceroute
+tree-sitter-cli
 ttf-firacode-nerd
 udiskie
 unrar
@@ -136,11 +143,9 @@ wl-mirror
 wlr-randr
 wofi
 wpa_supplicant
-xdg-desktop-portal-gtk
 xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-utils
-xorg-server
 xorg-xinit
 xorg-xwayland
 yaru-icon-theme
