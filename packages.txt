@@ -52,7 +52,6 @@ iw
 iwd
 jetbrains-toolbox
 jq
-k9s
 kitty
 lazydocker
 lazygit
