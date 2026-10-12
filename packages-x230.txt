@@ -81,7 +81,7 @@ nss-mdns
 nvm
 nwg-look
 openbsd-netcat
-opencode-bin
+opencode
 pacman-contrib
 pavucontrol
 pcmanfm
@@ -101,6 +101,7 @@ python-weasyprint
 qt5-wayland
 remmina
 rpi-imager
+rsync
 seahorse
 seatd
 sesh-bin
