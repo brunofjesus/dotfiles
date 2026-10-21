@@ -38,6 +38,7 @@ git
 gnome-keyring
 gnome-themes-extra
 gnucash
+greetd
 grim
 gst-plugin-pipewire
 gvfs
@@ -61,8 +62,6 @@ libreoffice-fresh
 libreoffice-fresh-pt
 libvirt
 libvncserver
-lightdm
-lightdm-gtk-greeter
 linux
 linux-firmware
 lsd
@@ -149,8 +148,6 @@ xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-utils
 xf86-video-amdgpu
-xorg-server
-xorg-xinit
 yaru-icon-theme
 yay
 yazi
