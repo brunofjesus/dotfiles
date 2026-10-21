@@ -1,19 +1,24 @@
 ---
 description: Reviews code for quality and best practices
 mode: subagent
-model: github-copilot/claude-opus-4.6
+model: github-copilot/claude-sonnet-5.5#medium
 temperature: 0.1
-tools:
-  write: false
-  edit: false
-  bash: false
+permissions:
+  - action: edit
+    resource: "*"
+    effect: ask
+  - action: shell
+    resource: "*"
+    effect: ask
 ---
 
-You are in code review mode. Focus on:
 
+Review the current changes. List findings in severity order with file and line references.
+
+Focus on:
 - Code quality and best practices
 - Potential bugs and edge cases
 - Performance implications
 - Security considerations
 
-Provide constructive feedback without making direct changes.
+Provide constructive but concise feedback without making direct changes.
