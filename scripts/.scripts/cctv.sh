@@ -3,9 +3,11 @@
 RUNNER="wofi -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
-else
-  source ~/.env
 fi
+
+
+# Load tokens first, regardless of how we're launched (terminal or keybind).
+[ -f ~/.env ] && source ~/.env
 
 declare -A camera_map
 camera_map["sala"]="rtsp://admin:${CCTV_PASSWORD}@172.30.1.90/Streaming/Channels/101";
