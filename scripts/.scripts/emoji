@@ -1,12 +1,29 @@
 #!/bin/bash
-wtype 0
-if [ $? -eq 0 ]
-then
-    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu -i | cut -d ' ' -f 1 | tr -d '\n' | wtype -
-else
-    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu -i | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
+
+# emoji: select an emoji with fuzzel
+# Press Enter to type (or copy if wtype unavailable)
+# Press Alt+y to copy to clipboard
+
+input=$(sed '1,/^### DATA ###$/d' "$0")
+
+output=$(printf '%s\n' "$input" | fuzzel --dmenu -i \
+    --override=key-bindings.custom-1=Mod1+y)
+
+rc=$?
+
+emoji=$(printf '%s' "$output" | cut -d ' ' -f 1 | tr -d '\n')
+[ -z "$emoji" ] && exit
+
+if [ "$rc" -ge 10 ]; then
+    printf '%s' "$emoji" | wl-copy
+    exit
 fi
-exit
+
+if command -v wtype >/dev/null 2>&1; then
+    printf '%s' "$emoji" | wtype -
+else
+    printf '%s' "$emoji" | wl-copy
+fi
 ### DATA ###
 😀 grinning face face smile happy joy :D grin smiley
 😃 grinning face with big eyes face happy joy haha :D :) smile funny mouth open smiley smiling

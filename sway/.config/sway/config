@@ -281,7 +281,7 @@ bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
 bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 
 # Emoji
-bindsym $mod+m exec ~/.config/wofi/wofi-emoji/wofi-emoji
+bindsym $mod+m exec ~/.scripts/emoji
 
 # Display options
 bindsym $mod+Shift+p exec ~/.scripts/display-states.sh apply Standalone
