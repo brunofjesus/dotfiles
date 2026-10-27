@@ -9,7 +9,7 @@ settings:
   colors.webpage.darkmode.enabled:
     global: true
   content.blocking.method:
-    global: adblock
+    global: both
   statusbar.show:
     global: always
   tabs.position:

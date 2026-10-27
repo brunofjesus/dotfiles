@@ -1,5 +1,8 @@
-c = c  # noqa: F821 pylint: disable=E0602,C0103
-config = config  # noqa: F821 pylint: disable=E0602,C0103
+# qutebrowser injects `c` and `config` into this module before executing it,
+# so static tools can't resolve them.
+# pyright: reportUndefinedVariable=false, reportUnknownMemberType=false, reportUnknownVariableType=false
+c = c  # noqa: F821, PLW0127 pylint: disable=E0602,C0103
+config = config  # noqa: F821, PLW0127 pylint: disable=E0602,C0103
 
 import subprocess
 
@@ -70,9 +73,10 @@ def _is_dark_mode():
             capture_output=True,
             text=True,
             timeout=2,
+            check=False,
         ).stdout.strip()
-        return True if "dark" in out else False
-    except Exception:
+        return "dark" in out
+    except (OSError, subprocess.SubprocessError):
         return False
 
 
@@ -172,7 +176,9 @@ c.auto_save.session = True  # save tabs on quit/restart
 # config.bind('<ctrl-y>', 'spawn --userscript ytdl.sh')
 
 # Custom commands
-c.aliases["password"] = "mode-enter insert ;; spawn --detach rofi-rbw --selector fuzzel --selector-args=\"--width=130\""
+c.aliases["password"] = (
+    'mode-enter insert ;; spawn --detach rofi-rbw --selector fuzzel --selector-args="--width=130"'
+)
 
 # keybinding
 config.bind("gJ", "tab-move +")
@@ -225,7 +231,7 @@ config.set(
 # config.set("content.javascript.enabled", False) # tsh keybind to toggle
 
 c.content.blocking.enabled = True
-c.content.blocking.method = 'adblock' # auto / adblock / both / hosts
+c.content.blocking.method = "adblock"  # auto / adblock / both / hosts
 # c.content.blocking.adblock.lists = [
 #         "https://github.com/uBlockOrigin/uAssets/raw/master/filters/legacy.txt",
 #         "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt",
