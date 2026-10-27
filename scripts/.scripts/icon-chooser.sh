@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
 fi

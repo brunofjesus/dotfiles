@@ -46,7 +46,7 @@ parse_channels() {
     echo -e "$channels"
 }
 
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 
 # Parse channels and display menu
 CHANNELS=$(parse_channels "$TEMP_FILE" "$MAPPING_FILE")

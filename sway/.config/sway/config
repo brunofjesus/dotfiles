@@ -30,7 +30,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec wofi --allow-images --hide-scroll --show drun --lines 10 
+bindsym $mod+d exec fuzzel
 
 # change focus
   # Move your focus around

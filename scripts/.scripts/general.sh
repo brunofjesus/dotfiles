@@ -8,7 +8,7 @@ options=$(find "$script_dir" -maxdepth 1 -type f -name "*.sh" ! -name "general.s
     sed 's/\.sh$//' | \
     sed 's/-/ /g')
 
-runner="wofi -i --dmenu"
+runner="fuzzel --dmenu -i"
 if tty -s; then
     runner="fzf"
 fi

@@ -10,6 +10,7 @@ set_theme() {
             $HOME/.config/waybar/set-theme.sh 'frappe'
             $HOME/.config/sway/set-theme.sh 'frappe'
             $HOME/.config/wofi/set-theme.sh 'frappe'
+            $HOME/.config/fuzzel/set-theme.sh 'frappe'
             $HOME/.config/zathura/set-theme.sh 'frappe'
             $HOME/.config/newsboat/set-theme.sh 'frappe'
             $HOME/.config/fzf/set-theme.sh 'frappe'
@@ -30,6 +31,7 @@ set_theme() {
             $HOME/.config/waybar/set-theme.sh 'latte'
             $HOME/.config/sway/set-theme.sh 'latte'
             $HOME/.config/wofi/set-theme.sh 'latte'
+            $HOME/.config/fuzzel/set-theme.sh 'latte'
             $HOME/.config/zathura/set-theme.sh 'latte'
             $HOME/.config/newsboat/set-theme.sh 'latte'
             $HOME/.config/fzf/set-theme.sh 'latte'
@@ -55,7 +57,7 @@ if tty -s; then
     choice=$(echo -e "$options" | fzf --reverse | awk '{print tolower($2)}')
 else
     # Use wofi if not in terminal
-    choice=$(echo -e "$options" | wofi -i --dmenu | awk '{print tolower($2)}')
+    choice=$(echo -e "$options" | fuzzel -i --dmenu | awk '{print tolower($2)}')
 fi
 
 # Apply the selected theme

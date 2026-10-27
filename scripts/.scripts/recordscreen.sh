@@ -8,7 +8,7 @@ command_runner() {
   fi
 }
 
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
 fi
@@ -17,7 +17,7 @@ OPTIONS="Record Area\nRecord Full Screen\nRecord Area (with Audio)\nRecord Full 
 
 
 # Show wofi menu and get user selection
-CHOICE=$(echo -e "$OPTIONS" | $RUNNER --prompt "Screen Recording")
+CHOICE=$(echo -e "$OPTIONS" | $RUNNER --prompt "Screen Recording: ")
 
 # Get current date-time for filename
 FILENAME="$HOME/Videos/recording_$(date +"%Y%m%d%H%M%S").mp4"

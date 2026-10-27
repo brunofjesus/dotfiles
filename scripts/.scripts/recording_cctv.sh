@@ -11,7 +11,7 @@ camera_map["cozinha"]=201
 camera_map["garagem"]=301
 camera_map["entrada"]=401
 
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
 else

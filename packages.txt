@@ -30,6 +30,7 @@ fd
 firewall-config
 firewalld
 freerdp
+fuzzel
 fwupd
 fzf
 gamescope
@@ -146,7 +147,6 @@ wireplumber
 wl-clipboard
 wl-mirror
 wlr-randr
-wofi
 wtype
 xdg-desktop-portal-gtk
 xdg-desktop-portal-wlr

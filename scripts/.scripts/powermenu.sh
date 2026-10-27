@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 options=" Poweroff\n Reboot\n Suspend\n Lock\n Logout"
-runner="wofi -i --dmenu"
+runner="fuzzel -i --dmenu"
 
 if tty -s; then
     runner="fzf"

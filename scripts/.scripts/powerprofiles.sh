@@ -3,7 +3,7 @@
 OPTIONS="󰾅 Balanced\n󰾆 Powersave\n󰓅 Performance"
 CURRENT=$(powerprofilesctl get)
 PROMPT="Select Power Profile ($CURRENT):"
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 
 if tty -s; then
     RUNNER="fzf"

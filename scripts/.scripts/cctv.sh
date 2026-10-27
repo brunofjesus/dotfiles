@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
 fi
@@ -16,7 +16,7 @@ camera_map["garagem"]="rtsp://admin:${CCTV_PASSWORD}@172.30.1.92/Streaming/Chann
 camera_map["entrada"]="rtsp://admin:${CCTV_PASSWORD}@172.30.1.93/Streaming/Channels/101";
 camera_map["rampa"]="rtsp://admin:${CCTV_PASSWORD}@172.30.1.94/Streaming/Channels/101";
 
-OPTIONS="🛋️ Sala\n🧑‍🍳 Cozinha\n🚘 Garagem\n🚪 Entrada\n⛰️ Rampa\n🔳 Grid\n"
+OPTIONS="🛋️ Sala\n🧑‍🍳 Cozinha\n🚘 Garagem\n🚪 Entrada\n⛰️ Rampa\n🔳 Grid"
 
 CHOICE=$(echo -e "$OPTIONS" | $RUNNER --prompt "Camera: " | awk '{print tolower($2)}' )
 

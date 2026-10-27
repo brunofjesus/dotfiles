@@ -11,7 +11,7 @@ get_state_file() {
 
 # Store the current display state
 store_state() {
-    state_name=$(wofi --show dmenu --prompt "Enter a name for the display profile:")
+    state_name=$(fuzzel --dmenu --prompt "Enter a name for the display profile:")
     [ -z "$state_name" ] && exit 0
     state_file=$(get_state_file "$state_name")
     swaymsg -t get_outputs > "$state_file"
@@ -20,7 +20,7 @@ store_state() {
 
 # Apply a saved display state
 choose_state() {
-    state_name=$(ls "$STATE_DIR" | sed 's/.json$//' | wofi --show dmenu --prompt "Select a display profile to apply:")
+    state_name=$(ls "$STATE_DIR" | sed 's/.json$//' | fuzzel --dmenu --prompt "Select a display profile to apply:")
     [ -z "$state_name" ] && return 1
     apply_state "$state_name"
 }
@@ -69,7 +69,7 @@ apply_state() {
 
 # Delete a saved display state
 delete_state() {
-    state_name=$(ls "$STATE_DIR" | sed 's/.json$//' | wofi --show dmenu --prompt "Select a display profile to delete:")
+    state_name=$(ls "$STATE_DIR" | sed 's/.json$//' | fuzzel --dmenu --prompt "Select a display profile to delete:")
     [ -z "$state_name" ] && exit 0
     state_file=$(get_state_file "$state_name")
     rm -f "$state_file"
@@ -78,14 +78,14 @@ delete_state() {
 
 mirror_display() {
     connected_outputs=$(wlr-randr --json | jq -r '.[] | select(.enabled) | .name')
-    wofi --show dmenu --prompt "Select an output to mirror:" < <(echo "$connected_outputs") | while read output; do
+    fuzzel --dmenu --prompt "Select an output to mirror:" < <(echo "$connected_outputs") | while read output; do
       wl-mirror "$output"
     done
 }
 
 # Main menu
 main_menu() {
-    choice=$(printf "🪞 Mirror Display\n💾 Store Layout\n✅ Choose Layout\n🗑️ Delete Layout\n🚪 Exit" | wofi --show dmenu --prompt "Choose an action:" |  awk '{print tolower($2)}')
+    choice=$(printf "🪞 Mirror Display\n💾 Store Layout\n✅ Choose Layout\n🗑️ Delete Layout\n🚪 Exit" | fuzzel --dmenu --prompt "Choose an action:" |  awk '{print tolower($2)}')
     case $choice in
         mirror) mirror_display ;;
         store) store_state ;;

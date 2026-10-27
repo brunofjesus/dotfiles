@@ -172,7 +172,7 @@ c.auto_save.session = True  # save tabs on quit/restart
 # config.bind('<ctrl-y>', 'spawn --userscript ytdl.sh')
 
 # Custom commands
-c.aliases["password"] = "mode-enter insert ;; spawn --detach rofi-rbw"
+c.aliases["password"] = "mode-enter insert ;; spawn --detach rofi-rbw --selector fuzzel --selector-args=\"--width=130\""
 
 # keybinding
 config.bind("gJ", "tab-move +")

@@ -29,7 +29,7 @@ prompt_user() {
     if tty -s; then
         choice=$(echo -e "$menu_items" | fzf --reverse --prompt="$title > ")
     else
-        choice=$(echo -e "$menu_items" | wofi -i --dmenu --prompt="$title")
+        choice=$(echo -e "$menu_items" | fuzzel -i --dmenu --prompt="$title: ")
     fi
     
     # Handle new entry
@@ -37,7 +37,7 @@ prompt_user() {
         if tty -s; then
             read -p "Enter $title: " choice
         else
-            choice=$(wofi -i --dmenu --prompt="Enter $title")
+            choice=$(fuzzel -i --dmenu --prompt="Enter $title")
         fi
     fi
     
@@ -63,16 +63,16 @@ if tty -s; then
     read -s -p "Enter password for $USERNAME: " PASSWD
     echo  # Add newline after password input
 else
-    PASSWD=$(echo "" | wofi --dmenu --password --prompt="Enter network share password for $USERNAME" -L 1 --hide-scroll)
+    PASSWD=$(echo "" | fuzzel --dmenu --password --prompt-only="Share password for $USERNAME: ")
 fi
 
 SHARES=$(smbclient -L $IP_ADDRESS --password=$PASSWD | awk '{ print $1 }' | tail -n +5)
 
 # Choose between fzf and wofi
 if tty -s; then
-    SHARE_NAME=$(echo -e "$SHARES" | fzf --reverse --prompt="Share Name > ")
+    SHARE_NAME=$(echo -e "$SHARES" | fzf --reverse --prompt="Share Name: ")
 else
-    SHARE_NAME=$(echo -e "$SHARES" | wofi -i --dmenu --prompt="Share Name > ")
+    SHARE_NAME=$(echo -e "$SHARES" | fuzzel -i --dmenu --prompt="Share Name: ")
 fi
 [[ -z "$SHARE_NAME" ]] && exit 1
 

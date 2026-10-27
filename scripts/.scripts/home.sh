@@ -8,7 +8,7 @@
 # Load tokens first, regardless of how we're launched (terminal or keybind).
 [ -f ~/.env ] && source ~/.env
 
-RUNNER="wofi -i --dmenu"
+RUNNER="fuzzel -i --dmenu"
 if tty -s; then
     RUNNER="fzf"
 fi
