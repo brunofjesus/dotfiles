@@ -21,6 +21,7 @@ set_theme() {
             $HOME/.config/k9s/set-theme.sh 'frappe'
             $HOME/.config/tmux/set-theme.sh 'frappe'
             $HOME/.config/nvim/set-theme.sh 'dark'
+            $HOME/.config/qutebrowser/set-theme.sh 'frappe'
             ;;
         "light")
             gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
@@ -40,6 +41,7 @@ set_theme() {
             $HOME/.config/k9s/set-theme.sh 'latte'
             $HOME/.config/tmux/set-theme.sh 'latte'
             $HOME/.config/nvim/set-theme.sh 'light'
+            $HOME/.config/qutebrowser/set-theme.sh 'latte'
             ;;
     esac
 }
