@@ -180,6 +180,8 @@ c.aliases["password"] = (
     'mode-enter insert ;; spawn --detach rofi-rbw --selector fuzzel --selector-args="--width=130"'
 )
 
+c.aliases["list-rss"] = 'spawn --userscript list-rss.sh'
+
 # keybinding
 config.bind("gJ", "tab-move +")
 config.bind("gK", "tab-move -")
