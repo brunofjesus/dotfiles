@@ -83,7 +83,7 @@
     },
     "memory": {
       "interval": 5,
-      "format": " {}%"
+      "format": " {used:2}GiB"
     },
     "cpu": {
       "interval": 1,
