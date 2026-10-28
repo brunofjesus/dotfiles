@@ -1,5 +1,4 @@
 7zip
-asciinema
 base
 base-devel
 bash-completion
@@ -15,7 +14,6 @@ bruno-bin
 btop
 cups
 cups-pdf
-cups-pk-helper
 dnsmasq
 docker
 docker-buildx
@@ -29,6 +27,7 @@ fd
 firewall-config
 firewalld
 freerdp
+fuzzel
 fwupd
 fzf
 ghostscript
@@ -37,6 +36,7 @@ git
 gnome-keyring
 gnome-themes-extra
 gnucash
+greetd
 grim
 gst-plugin-pipewire
 gvfs
@@ -50,7 +50,6 @@ intel-ucode
 iperf3
 iw
 jq
-k9s
 kitty
 lazydocker
 lazygit
@@ -61,8 +60,6 @@ libva-intel-driver
 libvirt
 libvncserver
 libvpl
-lightdm
-lightdm-gtk-greeter
 linux
 linux-firmware
 lsd
@@ -95,11 +92,14 @@ polkit-gnome
 power-profiles-daemon
 presenterm
 protobuf
+python-adblock
 python-pillow
 python-pipx
 python-weasyprint
 qt5-wayland
+qutebrowser
 remmina
+rofi-rbw
 rpi-imager
 rsync
 seahorse
@@ -109,6 +109,7 @@ slurp
 smartmontools
 spotify-launcher
 spotify-player
+sshfs
 starship
 stow
 sudo
@@ -147,8 +148,6 @@ wpa_supplicant
 xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-utils
-xorg-xinit
-xorg-xwayland
 yaru-icon-theme
 yay
 yazi
