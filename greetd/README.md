@@ -4,27 +4,7 @@
 use `agreety` (the bundled terminal greeter) to log in and launch `sway`
 (Wayland compositor) directly, without a graphical greeter.
 
-## Files
-
 - `/etc/greetd/config.toml` — greetd configuration (greeter + session).
-- `/usr/local/bin/start-sway` — wrapper script that sets up the Wayland
-  environment and execs `sway`.
-
-## `/usr/local/bin/start-sway`
-
-```sh
-#!/bin/sh
-export XDG_SESSION_TYPE=wayland
-export XDG_SESSION_DESKTOP=sway
-export XDG_CURRENT_DESKTOP=sway
-
-# Wayland stuff
-export QT_QPA_PLATFORM=wayland
-export SDL_VIDEODRIVER=wayland
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-exec sway "$@"
-```
 
 ## `/etc/greetd/config.toml`
 
@@ -40,7 +20,6 @@ vt = 1
 # `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
 # with whatever you want started, such as `sway`.
 #command = "agreety --cmd /bin/sh"
-command = "agreety --cmd /usr/local/bin/start-sway"
 
 # The user to run the command as. The privileges this user must have depends
 # on the greeter. A graphical greeter may for example require the user to be
@@ -57,20 +36,10 @@ user = "bruno"
 1. **Install greetd and sway** (package names vary by distro, e.g. on Arch:
    `pacman -S greetd sway`).
 
-2. **Create the launch script** at `/usr/local/bin/start-sway` with the
-   contents above, then make it executable:
+2. **Write the config** to `/etc/greetd/config.toml` with the contents above.
 
-   ```sh
-   sudo install -m 755 start-sway /usr/local/bin/start-sway
-   ```
-
-3. **Write the config** to `/etc/greetd/config.toml` with the contents above.
-
-   - `[default_session]` is what greetd starts on the greeter VT: `agreety`
-     prompts for a username/password, then execs `/usr/local/bin/start-sway`
-     as that user.
-   - `[initial_session]` is optional — it's an auto-login session greetd will
-     start immediately without showing the greeter at all (here, user
+   - `[initial_session]` an auto-login session greetd will start immediately
+      without showing the greeter at all (here, user
      `bruno` is auto-logged into `sway` directly). Remove this section if you
      want to always be prompted by `agreety`.
 
