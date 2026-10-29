@@ -21,4 +21,4 @@ fi
 #    brave "$URL"
 #fi
 
-brave "$URL"
+xdg-open "$URL"
