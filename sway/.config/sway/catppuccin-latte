@@ -24,6 +24,3 @@ set $surface0  #ccd0da
 set $base      #eff1f5
 set $mantle    #e6e9ef
 set $crust     #dce0e8
-
-# Wallpaper
-output "*" bg ~/.wallpaper.png center #eff1f5

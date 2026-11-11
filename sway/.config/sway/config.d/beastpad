@@ -21,3 +21,6 @@ bindswitch lid:off output $laptop_output enable
 # gaps
 bindsym $mod+g gaps inner all plus 2
 bindsym $mod+Shift+g gaps inner all minus 2
+
+# Wallpaper
+output * bg ~/.wallpaper.png center $base

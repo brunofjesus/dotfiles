@@ -14,3 +14,6 @@ input "type:touchpad" {
 # Automatically hide cursor
 seat seat0 hide_cursor 3000
 
+# Wallpaper
+# No wallpaper here, only the theme background color
+output * bg $base solid_color

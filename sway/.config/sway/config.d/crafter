@@ -22,3 +22,5 @@ input "type:touchpad" {
 # Automatically hide cursor
 seat seat0 hide_cursor 3000
 
+# Wallpaper
+output * bg ~/.wallpaper.png center $base

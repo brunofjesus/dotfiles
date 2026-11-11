@@ -41,11 +41,10 @@ swaymsg "client.urgent $peach $base $peach $overlay0 $peach"
 swaymsg "client.placeholder $overlay0 $base $text $overlay0 $overlay0"
 swaymsg "client.background $base"
 
-# Update wallpaper if specified in theme
-WALLPAPER_LINE=$(grep "^output.*bg" "$THEME_FILE")
+# Update wallpaper from the machine-specific config
+MACHINE_CONFIG="$HOME/.config/sway/config.d/$(cat /etc/hostname)"
+WALLPAPER_LINE=$(grep -m1 '^output .* bg ' "$MACHINE_CONFIG" | envsubst)
 if [ -n "$WALLPAPER_LINE" ]; then
-    # Extract and apply wallpaper command
-    WALLPAPER_CMD=$(echo "$WALLPAPER_LINE" | sed 's/output //')
-    swaymsg "output $WALLPAPER_CMD"
+    swaymsg "$WALLPAPER_LINE"
 fi
 
