@@ -51,7 +51,6 @@ inetutils
 iperf3
 iptables
 iw
-iwd
 jetbrains-toolbox
 jq
 kitty
@@ -68,6 +67,7 @@ linux-firmware
 lsd
 mako
 man-db
+man-pages
 mpv
 neovim
 network-manager-applet
@@ -106,6 +106,7 @@ remmina
 rofi-rbw
 rpi-imager
 rsync
+sane-airscan
 seahorse
 sesh-bin
 slurp
@@ -139,6 +140,7 @@ vulkan-radeon
 w3m
 waybar
 wdisplays
+weechat
 wf-recorder
 wget
 wireless-regdb
