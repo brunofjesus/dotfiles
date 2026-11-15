@@ -142,6 +142,6 @@ if [[ -f ".env" ]]; then
 fi
 
 eval "$(starship init bash)"
-eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
 source /usr/share/nvm/init-nvm.sh
+eval "$(atuin init bash)"
